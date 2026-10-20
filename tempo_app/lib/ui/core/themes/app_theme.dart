@@ -118,16 +118,23 @@ abstract final class AppTheme {
     final base = GoogleFonts.manropeTextTheme(
       ThemeData(brightness: scheme.brightness).textTheme,
     );
+    // Go through GoogleFonts.manrope rather than copyWith: google_fonts bakes
+    // the weight into the family name, so copyWith(fontWeight:) would only
+    // fake-bold the base file.
     TextStyle style(
       TextStyle? from,
       double size,
       double lineHeight,
-      FontWeight weight,
-    ) => from!.copyWith(
+      FontWeight weight, {
+      double letterSpacing = 0,
+      List<FontFeature>? fontFeatures,
+    }) => GoogleFonts.manrope(
+      textStyle: from,
       fontSize: size,
       height: lineHeight / size,
       fontWeight: weight,
-      letterSpacing: 0,
+      letterSpacing: letterSpacing,
+      fontFeatures: fontFeatures,
     );
 
     return base
@@ -138,7 +145,8 @@ abstract final class AppTheme {
             56,
             64,
             FontWeight.w800,
-          ).copyWith(fontFeatures: const [FontFeature.tabularFigures()]),
+            fontFeatures: const [FontFeature.tabularFigures()],
+          ),
           // 5h 42m — totals.
           displaySmall: style(base.displaySmall, 34, 40, FontWeight.w800),
           // Today — screen titles.
@@ -155,7 +163,8 @@ abstract final class AppTheme {
             12,
             16,
             FontWeight.w700,
-          ).copyWith(letterSpacing: 0.8),
+            letterSpacing: 0.8,
+          ),
         )
         .apply(bodyColor: scheme.onSurface, displayColor: scheme.onSurface);
   }

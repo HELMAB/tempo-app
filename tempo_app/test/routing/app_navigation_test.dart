@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:tempo_app/app.dart';
 import 'package:tempo_app/config/dependencies.dart';
 
 import '../testing/test_dependencies.dart';
 
 void main() {
-  setUpAll(() => GoogleFonts.config.allowRuntimeFetching = false);
-
   Future<void> pumpApp(
     WidgetTester tester, {
     Map<String, Object> preferences = const {},
