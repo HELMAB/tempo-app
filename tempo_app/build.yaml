@@ -1,0 +1,7 @@
+targets:
+  $default:
+    builders:
+      drift_dev:
+        options:
+          # Unix-second integers keep DateTime range queries index-friendly.
+          store_date_time_values_as_text: false
