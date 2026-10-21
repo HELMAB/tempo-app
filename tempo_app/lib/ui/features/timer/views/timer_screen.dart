@@ -1,13 +1,13 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../routing/routes.dart';
 import '../../../core/formatters/date_format.dart';
 import '../../../core/formatters/duration_format.dart';
+import '../../../core/haptics.dart';
 import '../../../core/localization.dart';
 import '../../../core/themes/app_colors.dart';
 import '../../../core/themes/app_motion.dart';
@@ -109,7 +109,7 @@ class _TimerContentState extends ConsumerState<_TimerContent> {
   }
 
   Future<void> _stopAndSave() async {
-    await HapticFeedback.mediumImpact();
+    Haptics.stop();
     await _viewModel.stopAndSave(note: _note.text);
     if (mounted) _close(context);
   }
@@ -241,7 +241,7 @@ class _TimerContentState extends ConsumerState<_TimerContent> {
                           icon: Icons.play_arrow_rounded,
                           style: _RoundActionStyle.tonal,
                           onPressed: () {
-                            HapticFeedback.selectionClick();
+                            Haptics.toggle();
                             _viewModel.resume();
                           },
                         )
@@ -251,7 +251,7 @@ class _TimerContentState extends ConsumerState<_TimerContent> {
                           icon: Icons.pause_rounded,
                           style: _RoundActionStyle.tonal,
                           onPressed: () {
-                            HapticFeedback.selectionClick();
+                            Haptics.toggle();
                             _viewModel.pause(note: _note.text);
                           },
                         ),

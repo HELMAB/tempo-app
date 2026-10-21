@@ -51,11 +51,13 @@ class _LaunchOverlayState extends State<LaunchOverlay>
       parent: _controller,
       curve: Interval(begin, end, curve: curve),
     );
-    // Timeline: ring sweeps, glyph pulses as it closes, then the reveal.
-    _ring = curve(0.05, 0.55, Curves.easeInOutCubic);
-    _pulse = curve(0.45, 0.62);
-    _reveal = curve(0.55, 1, AppMotion.exit);
-    _logoOut = curve(0.55, 0.78, AppMotion.exit);
+    // Timeline: ring sweeps, glyph pulses as it closes, the logo lifts
+    // away, then the reveal. The logo is gone before the hole reaches it,
+    // or the app would show through the glyph.
+    _ring = curve(0.05, 0.5, Curves.easeInOutCubic);
+    _pulse = curve(0.42, 0.56);
+    _logoOut = curve(0.52, 0.68, AppMotion.exit);
+    _reveal = curve(0.64, 1, AppMotion.exit);
   }
 
   @override

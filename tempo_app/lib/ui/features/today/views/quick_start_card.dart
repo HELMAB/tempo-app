@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../routing/routes.dart';
 import '../../../core/formatters/duration_format.dart';
+import '../../../core/haptics.dart';
 import '../../../core/localization.dart';
 import '../../../core/widgets/motion.dart';
 import '../../../core/widgets/project_chip.dart';
@@ -36,14 +36,14 @@ class _QuickStartCardState extends ConsumerState<QuickStartCard> {
   TodayViewModel get _viewModel => ref.read(todayViewModelProvider.notifier);
 
   Future<void> _start() async {
-    await HapticFeedback.mediumImpact();
+    Haptics.start();
     await _viewModel.startTimer(description: _description.text);
     _description.clear();
     if (mounted) await context.push(Routes.timer);
   }
 
   Future<void> _stop() async {
-    await HapticFeedback.lightImpact();
+    Haptics.stop();
     await _viewModel.stopTimer();
   }
 
