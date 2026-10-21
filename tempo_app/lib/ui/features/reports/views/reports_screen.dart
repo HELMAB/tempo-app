@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/localization.dart';
 import '../../../core/widgets/screen_placeholder.dart';
 
 class ReportsScreen extends StatelessWidget {
@@ -7,8 +8,8 @@ class ReportsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ScreenPlaceholder(
-      title: 'Reports',
+    return ScreenPlaceholder(
+      title: context.l10n.navReports,
       prototype: '07 · Reports.png',
     );
   }

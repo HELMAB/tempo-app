@@ -7,7 +7,7 @@ import '../ui/core/widgets/app_shell.dart';
 import '../ui/core/widgets/modal_bottom_sheet_page.dart';
 import '../ui/features/entry_editor/views/entry_editor_screen.dart';
 import '../ui/features/onboarding/views/onboarding_screen.dart';
-import '../ui/features/projects/views/new_project_sheet.dart';
+import '../ui/features/projects/views/project_sheet.dart';
 import '../ui/features/projects/views/projects_screen.dart';
 import '../ui/features/reports/views/reports_screen.dart';
 import '../ui/features/settings/views/settings_screen.dart';
@@ -51,12 +51,27 @@ final routerProvider = Provider<GoRouter>((ref) {
                 path: Routes.projects,
                 builder: (context, state) => const ProjectsScreen(),
                 routes: [
+                  // `new` is declared before `:id` so it is matched first.
                   GoRoute(
                     path: 'new',
                     parentNavigatorKey: rootNavigatorKey,
                     pageBuilder: (context, state) => ModalBottomSheetPage<void>(
                       key: state.pageKey,
-                      child: const NewProjectSheet(),
+                      child: const ProjectSheet(),
+                    ),
+                  ),
+                  GoRoute(
+                    path: ':id',
+                    parentNavigatorKey: rootNavigatorKey,
+                    redirect: (context, state) =>
+                        int.tryParse(state.pathParameters['id']!) == null
+                        ? Routes.projects
+                        : null,
+                    pageBuilder: (context, state) => ModalBottomSheetPage<void>(
+                      key: state.pageKey,
+                      child: ProjectSheet(
+                        projectId: int.parse(state.pathParameters['id']!),
+                      ),
                     ),
                   ),
                 ],

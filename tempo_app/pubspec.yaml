@@ -24,7 +24,16 @@ dependencies:
   shared_preferences: ^2.5.6
   # Immutable domain models.
   freezed_annotation: ^3.1.0
-  intl: ^0.20.3
+  intl: ^0.20.2 # pinned by flutter_localizations
+  flutter_localizations:
+    sdk: flutter
+  fl_chart: ^1.2.0
+  flutter_local_notifications: ^22.3.2
+  timezone: ^0.11.2
+  flutter_timezone: ^5.1.1
+  share_plus: ^13.3.1
+  file_selector: ^1.1.0
+  package_info_plus: ^10.2.2
 
   # Added later, following the build order in README.md:
   #   fl_chart (Reports), flutter_local_notifications (Settings › Reminders).
@@ -40,23 +49,26 @@ dev_dependencies:
   # drift_dev's analyzer. Move to ^4.0.3 once Flutter ships Dart 3.13.
   freezed: 4.0.0-dev.3
   shared_preferences_platform_interface: ^2.4.2
+  meta: ^1.18.0
 
 flutter:
   uses-material-design: true
+  # Generates AppLocalizations from lib/l10n/*.arb (see l10n.yaml).
+  generate: true
 
   assets:
     - assets/fonts/OFL.txt
 
-  # Manrope (handoff typeface), bundled so the app never fetches fonts.
+  # Google Sans (Latin + Khmer in one family), bundled so the app never
+  # fetches fonts. Static instances from Google Fonts, upright only; the
+  # family's heaviest weight is 700.
   fonts:
-    - family: Manrope
+    - family: Google Sans
       fonts:
-        - asset: assets/fonts/Manrope-Regular.ttf
-        - asset: assets/fonts/Manrope-Medium.ttf
+        - asset: assets/fonts/GoogleSans-Regular.ttf
+        - asset: assets/fonts/GoogleSans-Medium.ttf
           weight: 500
-        - asset: assets/fonts/Manrope-SemiBold.ttf
+        - asset: assets/fonts/GoogleSans-SemiBold.ttf
           weight: 600
-        - asset: assets/fonts/Manrope-Bold.ttf
+        - asset: assets/fonts/GoogleSans-Bold.ttf
           weight: 700
-        - asset: assets/fonts/Manrope-ExtraBold.ttf
-          weight: 800

@@ -37,6 +37,42 @@ class TimeEntryRepository {
     return _groupWithTags(rows).firstOrNull;
   }
 
+  /// Total time of finished entries per project (null key: no project) for
+  /// entries started in `[from, to)`; either bound may be open. The running
+  /// entry is left out because its length changes every second.
+  Stream<Map<int?, Duration>> watchFinishedTotalsByProject({
+    DateTime? from,
+    DateTime? to,
+  }) {
+    final conditions = ['end_at IS NOT NULL'];
+    final variables = <Variable<Object>>[];
+    if (from != null) {
+      conditions.add('start_at >= ?');
+      variables.add(Variable<DateTime>(from));
+    }
+    if (to != null) {
+      conditions.add('start_at < ?');
+      variables.add(Variable<DateTime>(to));
+    }
+    return _db
+        .customSelect(
+          'SELECT project_id, SUM(end_at - start_at) AS seconds '
+          'FROM time_entries WHERE ${conditions.join(' AND ')} '
+          'GROUP BY project_id',
+          variables: variables,
+          readsFrom: {_db.timeEntries},
+        )
+        .watch()
+        .map(
+          (rows) => {
+            for (final row in rows)
+              row.read<int?>('project_id'): Duration(
+                seconds: row.read<int>('seconds'),
+              ),
+          },
+        );
+  }
+
   Stream<List<String>> watchTagNames() {
     final query = _db.select(_db.tags)
       ..orderBy([(t) => OrderingTerm.asc(t.name)]);

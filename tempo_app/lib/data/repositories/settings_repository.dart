@@ -21,6 +21,9 @@ class SettingsRepository {
     dailyGoalMinutes:
         _preferences.getInt(_Keys.dailyGoalMinutes) ??
         _defaults.dailyGoalMinutes,
+    focusGoalMinutes:
+        _preferences.getInt(_Keys.focusGoalMinutes) ??
+        _defaults.focusGoalMinutes,
     weekStartsOn:
         _preferences.getInt(_Keys.weekStartsOn) ?? _defaults.weekStartsOn,
     idleDetection:
@@ -38,6 +41,11 @@ class SettingsRepository {
           _Keys.theme,
         )] ??
         _defaults.theme,
+    language:
+        AppLanguage.values.asNameMap()[_preferences.getString(
+          _Keys.language,
+        )] ??
+        _defaults.language,
   );
 
   /// Emits the current settings, then every change.
@@ -58,6 +66,7 @@ class SettingsRepository {
     await Future.wait([
       _preferences.setBool(_Keys.onboardingComplete, next.onboardingComplete),
       _preferences.setInt(_Keys.dailyGoalMinutes, next.dailyGoalMinutes),
+      _preferences.setInt(_Keys.focusGoalMinutes, next.focusGoalMinutes),
       _preferences.setInt(_Keys.weekStartsOn, next.weekStartsOn),
       _preferences.setBool(_Keys.idleDetection, next.idleDetection),
       _preferences.setBool(_Keys.remindToStart, next.remindToStart),
@@ -67,6 +76,7 @@ class SettingsRepository {
         next.runningTimerNotification,
       ),
       _preferences.setString(_Keys.theme, next.theme.name),
+      _preferences.setString(_Keys.language, next.language.name),
     ]);
     _changes.add(next);
   }
@@ -77,10 +87,12 @@ class SettingsRepository {
 abstract final class _Keys {
   static const onboardingComplete = 'onboarding_complete';
   static const dailyGoalMinutes = 'daily_goal_minutes';
+  static const focusGoalMinutes = 'focus_goal_minutes';
   static const weekStartsOn = 'week_starts_on';
   static const idleDetection = 'idle_detection';
   static const remindToStart = 'remind_to_start';
   static const reminderMinuteOfDay = 'reminder_minute_of_day';
   static const runningTimerNotification = 'running_timer_notification';
   static const theme = 'theme';
+  static const language = 'language';
 }

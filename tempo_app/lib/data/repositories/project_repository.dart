@@ -15,6 +15,13 @@ class ProjectRepository {
     return query.watch().map((rows) => rows.map(_toDomain).toList());
   }
 
+  /// Active and archived, so entries of archived projects keep their name.
+  Stream<List<Project>> watchAllProjects() {
+    final query = _db.select(_db.projects)
+      ..orderBy([(p) => OrderingTerm.asc(p.createdAt)]);
+    return query.watch().map((rows) => rows.map(_toDomain).toList());
+  }
+
   Future<Project?> getProject(int id) async {
     final row = await (_db.select(
       _db.projects,

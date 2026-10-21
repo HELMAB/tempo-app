@@ -2,17 +2,26 @@ import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
 
-/// Material 3 theme from the Flutter handoff: Manrope type scale,
-/// 8 px grid, radii 12 (fields) / 20 (cards) / 28 (sheets) / full (buttons).
+/// Material 3 theme from the Flutter handoff: type scale, 8 px grid,
+/// radii 12 (fields) / 20 (cards) / 28 (sheets) / full (buttons).
+///
+/// Typeface is Google Sans (covers Latin and Khmer). Its heaviest weight is
+/// 700, so the handoff's 800 styles use 700. Khmer stacks vowels and
+/// subscript consonants above and below the line, so [locale] `km` gets
+/// taller line heights and no letter-spacing.
 abstract final class AppTheme {
   static const fieldRadius = 12.0;
   static const cardRadius = 20.0;
   static const sheetRadius = 28.0;
 
   /// Declared in pubspec.yaml, bundled from assets/fonts.
-  static const fontFamily = 'Manrope';
+  static const fontFamily = 'Google Sans';
 
-  static ThemeData get light => _build(
+  /// Line-height multiplier applied on top of the handoff scale for Khmer.
+  static const _khmerLineHeightScale = 1.3;
+
+  static ThemeData light(Locale locale) => _build(
+    locale,
     ColorScheme.fromSeed(
       seedColor: AppColors.primary,
       primary: AppColors.primary,
@@ -28,15 +37,16 @@ abstract final class AppTheme {
   );
 
   /// Not designed yet; derived from the same seed until it is.
-  static ThemeData get dark => _build(
+  static ThemeData dark(Locale locale) => _build(
+    locale,
     ColorScheme.fromSeed(
       seedColor: AppColors.primary,
       brightness: Brightness.dark,
     ),
   );
 
-  static ThemeData _build(ColorScheme scheme) {
-    final textTheme = _textTheme(scheme);
+  static ThemeData _build(Locale locale, ColorScheme scheme) {
+    final textTheme = _textTheme(locale, scheme);
     const stadium = StadiumBorder();
 
     return ThemeData(
@@ -71,6 +81,9 @@ abstract final class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
+        hintStyle: textTheme.bodyLarge?.copyWith(
+          color: scheme.onSurfaceVariant,
+        ),
         fillColor: scheme.surface,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(fieldRadius),
@@ -91,13 +104,6 @@ abstract final class AppTheme {
         selectedColor: scheme.primaryContainer,
         labelStyle: textTheme.bodyMedium,
       ),
-      segmentedButtonTheme: SegmentedButtonThemeData(
-        style: SegmentedButton.styleFrom(
-          shape: stadium,
-          selectedBackgroundColor: scheme.surface,
-          backgroundColor: scheme.outlineVariant.withValues(alpha: 0.5),
-        ),
-      ),
       bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: scheme.surface,
         showDragHandle: true,
@@ -113,11 +119,20 @@ abstract final class AppTheme {
         surfaceTintColor: Colors.transparent,
         labelTextStyle: WidgetStatePropertyAll(textTheme.labelLarge),
       ),
+      listTileTheme: ListTileThemeData(
+        titleTextStyle: textTheme.bodyLarge?.copyWith(
+          fontWeight: FontWeight.w700,
+        ),
+        subtitleTextStyle: textTheme.bodySmall?.copyWith(
+          color: scheme.onSurfaceVariant,
+        ),
+      ),
       dividerTheme: DividerThemeData(color: scheme.outlineVariant, space: 1),
     );
   }
 
-  static TextTheme _textTheme(ColorScheme scheme) {
+  static TextTheme _textTheme(Locale locale, ColorScheme scheme) {
+    final khmer = locale.languageCode == 'km';
     final base = ThemeData(
       brightness: scheme.brightness,
       fontFamily: fontFamily,
@@ -126,12 +141,13 @@ abstract final class AppTheme {
       TextStyle? from,
       double size,
       double lineHeight,
-      FontWeight weight,
-    ) => from!.copyWith(
+      FontWeight weight, {
+      double letterSpacing = 0,
+    }) => from!.copyWith(
       fontSize: size,
-      height: lineHeight / size,
+      height: lineHeight / size * (khmer ? _khmerLineHeightScale : 1),
       fontWeight: weight,
-      letterSpacing: 0,
+      letterSpacing: khmer ? 0 : letterSpacing,
     );
 
     return base
@@ -141,16 +157,18 @@ abstract final class AppTheme {
             base.displayLarge,
             56,
             64,
-            FontWeight.w800,
+            FontWeight.w700,
           ).copyWith(fontFeatures: const [FontFeature.tabularFigures()]),
           // 5h 42m — totals.
-          displaySmall: style(base.displaySmall, 34, 40, FontWeight.w800),
+          displaySmall: style(base.displaySmall, 34, 40, FontWeight.w700),
           // Today — screen titles.
-          headlineMedium: style(base.headlineMedium, 28, 36, FontWeight.w800),
+          headlineMedium: style(base.headlineMedium, 28, 36, FontWeight.w700),
           // Entries — section titles.
           titleMedium: style(base.titleMedium, 17, 24, FontWeight.w700),
-          // Build timer screen — list titles.
-          bodyLarge: style(base.bodyLarge, 15, 22, FontWeight.w700),
+          // Body text and inputs. The handoff's bold list-title variant
+          // (15/22 · 700) is applied through listTileTheme instead, so text
+          // fields don't render bold.
+          bodyLarge: style(base.bodyLarge, 15, 22, FontWeight.w500),
           // Flutter course · 09:00–10:45 — metadata.
           bodySmall: style(base.bodySmall, 13, 18, FontWeight.w500),
           // REMINDERS — group labels.
@@ -159,7 +177,8 @@ abstract final class AppTheme {
             12,
             16,
             FontWeight.w700,
-          ).copyWith(letterSpacing: 0.8),
+            letterSpacing: 0.8,
+          ),
         )
         .apply(bodyColor: scheme.onSurface, displayColor: scheme.onSurface);
   }

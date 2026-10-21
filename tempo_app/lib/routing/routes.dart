@@ -13,6 +13,7 @@ abstract final class Routes {
   static const newEntry = '/entry/new';
   static String entry(int id) => '/entry/$id';
 
-  /// Bottom sheet over the Projects tab.
+  /// Bottom sheets over the Projects tab.
   static const newProject = '/projects/new';
+  static String project(int id) => '/projects/$id';
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../localization.dart';
+
 /// Temporary body for screens that are routed but not built yet.
 /// Delete once every screen in the build order is implemented.
 class ScreenPlaceholder extends StatelessWidget {
@@ -30,7 +32,7 @@ class ScreenPlaceholder extends StatelessWidget {
             Text(title, style: textTheme.headlineMedium),
             const SizedBox(height: 8),
             Text(
-              'Not built yet · see prototype/$prototype',
+              context.l10n.screenNotBuilt(prototype),
               style: textTheme.bodySmall?.copyWith(
                 color: colors.onSurfaceVariant,
               ),

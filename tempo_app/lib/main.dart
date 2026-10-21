@@ -12,7 +12,7 @@ Future<void> main() async {
 
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('assets/fonts/OFL.txt');
-    yield LicenseEntryWithLineBreaks(['Manrope'], license);
+    yield LicenseEntryWithLineBreaks(['Google Sans'], license);
   });
 
   final preferences = await SharedPreferencesWithCache.create(

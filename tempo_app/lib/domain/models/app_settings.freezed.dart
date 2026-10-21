@@ -15,9 +15,10 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AppSettings {
 
- bool get onboardingComplete; int get dailyGoalMinutes;/// [DateTime.monday] .. [DateTime.sunday].
+ bool get onboardingComplete; int get dailyGoalMinutes;/// Target length of one timer session ("of 2h focus goal").
+ int get focusGoalMinutes;/// [DateTime.monday] .. [DateTime.sunday].
  int get weekStartsOn; bool get idleDetection; bool get remindToStart;/// Minutes after midnight, 540 = 09:00.
- int get reminderMinuteOfDay; bool get runningTimerNotification; ThemePreference get theme;
+ int get reminderMinuteOfDay; bool get runningTimerNotification; ThemePreference get theme; AppLanguage get language;
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +29,16 @@ $AppSettingsCopyWith<AppSettings> get copyWith => _$AppSettingsCopyWithImpl<AppS
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppSettings&&(identical(other.onboardingComplete, onboardingComplete) || other.onboardingComplete == onboardingComplete)&&(identical(other.dailyGoalMinutes, dailyGoalMinutes) || other.dailyGoalMinutes == dailyGoalMinutes)&&(identical(other.weekStartsOn, weekStartsOn) || other.weekStartsOn == weekStartsOn)&&(identical(other.idleDetection, idleDetection) || other.idleDetection == idleDetection)&&(identical(other.remindToStart, remindToStart) || other.remindToStart == remindToStart)&&(identical(other.reminderMinuteOfDay, reminderMinuteOfDay) || other.reminderMinuteOfDay == reminderMinuteOfDay)&&(identical(other.runningTimerNotification, runningTimerNotification) || other.runningTimerNotification == runningTimerNotification)&&(identical(other.theme, theme) || other.theme == theme));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppSettings&&(identical(other.onboardingComplete, onboardingComplete) || other.onboardingComplete == onboardingComplete)&&(identical(other.dailyGoalMinutes, dailyGoalMinutes) || other.dailyGoalMinutes == dailyGoalMinutes)&&(identical(other.focusGoalMinutes, focusGoalMinutes) || other.focusGoalMinutes == focusGoalMinutes)&&(identical(other.weekStartsOn, weekStartsOn) || other.weekStartsOn == weekStartsOn)&&(identical(other.idleDetection, idleDetection) || other.idleDetection == idleDetection)&&(identical(other.remindToStart, remindToStart) || other.remindToStart == remindToStart)&&(identical(other.reminderMinuteOfDay, reminderMinuteOfDay) || other.reminderMinuteOfDay == reminderMinuteOfDay)&&(identical(other.runningTimerNotification, runningTimerNotification) || other.runningTimerNotification == runningTimerNotification)&&(identical(other.theme, theme) || other.theme == theme)&&(identical(other.language, language) || other.language == language));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,onboardingComplete,dailyGoalMinutes,weekStartsOn,idleDetection,remindToStart,reminderMinuteOfDay,runningTimerNotification,theme);
+int get hashCode => Object.hash(runtimeType,onboardingComplete,dailyGoalMinutes,focusGoalMinutes,weekStartsOn,idleDetection,remindToStart,reminderMinuteOfDay,runningTimerNotification,theme,language);
 
 @override
 String toString() {
-  return 'AppSettings(onboardingComplete: $onboardingComplete, dailyGoalMinutes: $dailyGoalMinutes, weekStartsOn: $weekStartsOn, idleDetection: $idleDetection, remindToStart: $remindToStart, reminderMinuteOfDay: $reminderMinuteOfDay, runningTimerNotification: $runningTimerNotification, theme: $theme)';
+  return 'AppSettings(onboardingComplete: $onboardingComplete, dailyGoalMinutes: $dailyGoalMinutes, focusGoalMinutes: $focusGoalMinutes, weekStartsOn: $weekStartsOn, idleDetection: $idleDetection, remindToStart: $remindToStart, reminderMinuteOfDay: $reminderMinuteOfDay, runningTimerNotification: $runningTimerNotification, theme: $theme, language: $language)';
 }
 
 
@@ -48,7 +49,7 @@ abstract mixin class $AppSettingsCopyWith<$Res>  {
   factory $AppSettingsCopyWith(AppSettings value, $Res Function(AppSettings) _then) = _$AppSettingsCopyWithImpl;
 @useResult
 $Res call({
- bool onboardingComplete, int dailyGoalMinutes, int weekStartsOn, bool idleDetection, bool remindToStart, int reminderMinuteOfDay, bool runningTimerNotification, ThemePreference theme
+ bool onboardingComplete, int dailyGoalMinutes, int focusGoalMinutes, int weekStartsOn, bool idleDetection, bool remindToStart, int reminderMinuteOfDay, bool runningTimerNotification, ThemePreference theme, AppLanguage language
 });
 
 
@@ -65,17 +66,19 @@ class _$AppSettingsCopyWithImpl<$Res>
 
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? onboardingComplete = null,Object? dailyGoalMinutes = null,Object? weekStartsOn = null,Object? idleDetection = null,Object? remindToStart = null,Object? reminderMinuteOfDay = null,Object? runningTimerNotification = null,Object? theme = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? onboardingComplete = null,Object? dailyGoalMinutes = null,Object? focusGoalMinutes = null,Object? weekStartsOn = null,Object? idleDetection = null,Object? remindToStart = null,Object? reminderMinuteOfDay = null,Object? runningTimerNotification = null,Object? theme = null,Object? language = null,}) {
   return _then(AppSettings(
 onboardingComplete: null == onboardingComplete ? _self.onboardingComplete : onboardingComplete // ignore: cast_nullable_to_non_nullable
 as bool,dailyGoalMinutes: null == dailyGoalMinutes ? _self.dailyGoalMinutes : dailyGoalMinutes // ignore: cast_nullable_to_non_nullable
+as int,focusGoalMinutes: null == focusGoalMinutes ? _self.focusGoalMinutes : focusGoalMinutes // ignore: cast_nullable_to_non_nullable
 as int,weekStartsOn: null == weekStartsOn ? _self.weekStartsOn : weekStartsOn // ignore: cast_nullable_to_non_nullable
 as int,idleDetection: null == idleDetection ? _self.idleDetection : idleDetection // ignore: cast_nullable_to_non_nullable
 as bool,remindToStart: null == remindToStart ? _self.remindToStart : remindToStart // ignore: cast_nullable_to_non_nullable
 as bool,reminderMinuteOfDay: null == reminderMinuteOfDay ? _self.reminderMinuteOfDay : reminderMinuteOfDay // ignore: cast_nullable_to_non_nullable
 as int,runningTimerNotification: null == runningTimerNotification ? _self.runningTimerNotification : runningTimerNotification // ignore: cast_nullable_to_non_nullable
 as bool,theme: null == theme ? _self.theme : theme // ignore: cast_nullable_to_non_nullable
-as ThemePreference,
+as ThemePreference,language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
+as AppLanguage,
   ));
 }
 
@@ -160,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool onboardingComplete,  int dailyGoalMinutes,  int weekStartsOn,  bool idleDetection,  bool remindToStart,  int reminderMinuteOfDay,  bool runningTimerNotification,  ThemePreference theme)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool onboardingComplete,  int dailyGoalMinutes,  int focusGoalMinutes,  int weekStartsOn,  bool idleDetection,  bool remindToStart,  int reminderMinuteOfDay,  bool runningTimerNotification,  ThemePreference theme,  AppLanguage language)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AppSettings() when $default != null:
-return $default(_that.onboardingComplete,_that.dailyGoalMinutes,_that.weekStartsOn,_that.idleDetection,_that.remindToStart,_that.reminderMinuteOfDay,_that.runningTimerNotification,_that.theme);case _:
+return $default(_that.onboardingComplete,_that.dailyGoalMinutes,_that.focusGoalMinutes,_that.weekStartsOn,_that.idleDetection,_that.remindToStart,_that.reminderMinuteOfDay,_that.runningTimerNotification,_that.theme,_that.language);case _:
   return orElse();
 
 }
@@ -181,10 +184,10 @@ return $default(_that.onboardingComplete,_that.dailyGoalMinutes,_that.weekStarts
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool onboardingComplete,  int dailyGoalMinutes,  int weekStartsOn,  bool idleDetection,  bool remindToStart,  int reminderMinuteOfDay,  bool runningTimerNotification,  ThemePreference theme)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool onboardingComplete,  int dailyGoalMinutes,  int focusGoalMinutes,  int weekStartsOn,  bool idleDetection,  bool remindToStart,  int reminderMinuteOfDay,  bool runningTimerNotification,  ThemePreference theme,  AppLanguage language)  $default,) {final _that = this;
 switch (_that) {
 case _AppSettings():
-return $default(_that.onboardingComplete,_that.dailyGoalMinutes,_that.weekStartsOn,_that.idleDetection,_that.remindToStart,_that.reminderMinuteOfDay,_that.runningTimerNotification,_that.theme);case _:
+return $default(_that.onboardingComplete,_that.dailyGoalMinutes,_that.focusGoalMinutes,_that.weekStartsOn,_that.idleDetection,_that.remindToStart,_that.reminderMinuteOfDay,_that.runningTimerNotification,_that.theme,_that.language);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +204,10 @@ return $default(_that.onboardingComplete,_that.dailyGoalMinutes,_that.weekStarts
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool onboardingComplete,  int dailyGoalMinutes,  int weekStartsOn,  bool idleDetection,  bool remindToStart,  int reminderMinuteOfDay,  bool runningTimerNotification,  ThemePreference theme)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool onboardingComplete,  int dailyGoalMinutes,  int focusGoalMinutes,  int weekStartsOn,  bool idleDetection,  bool remindToStart,  int reminderMinuteOfDay,  bool runningTimerNotification,  ThemePreference theme,  AppLanguage language)?  $default,) {final _that = this;
 switch (_that) {
 case _AppSettings() when $default != null:
-return $default(_that.onboardingComplete,_that.dailyGoalMinutes,_that.weekStartsOn,_that.idleDetection,_that.remindToStart,_that.reminderMinuteOfDay,_that.runningTimerNotification,_that.theme);case _:
+return $default(_that.onboardingComplete,_that.dailyGoalMinutes,_that.focusGoalMinutes,_that.weekStartsOn,_that.idleDetection,_that.remindToStart,_that.reminderMinuteOfDay,_that.runningTimerNotification,_that.theme,_that.language);case _:
   return null;
 
 }
@@ -216,11 +219,13 @@ return $default(_that.onboardingComplete,_that.dailyGoalMinutes,_that.weekStarts
 
 
 class _AppSettings implements AppSettings {
-  const _AppSettings({this.onboardingComplete = false, this.dailyGoalMinutes = 480, this.weekStartsOn = DateTime.monday, this.idleDetection = true, this.remindToStart = true, this.reminderMinuteOfDay = 540, this.runningTimerNotification = false, this.theme = ThemePreference.system});
+  const _AppSettings({this.onboardingComplete = false, this.dailyGoalMinutes = 480, this.focusGoalMinutes = 120, this.weekStartsOn = DateTime.monday, this.idleDetection = true, this.remindToStart = true, this.reminderMinuteOfDay = 540, this.runningTimerNotification = false, this.theme = ThemePreference.system, this.language = AppLanguage.khmer});
   
 
 @override@JsonKey() final  bool onboardingComplete;
 @override@JsonKey() final  int dailyGoalMinutes;
+/// Target length of one timer session ("of 2h focus goal").
+@override@JsonKey() final  int focusGoalMinutes;
 /// [DateTime.monday] .. [DateTime.sunday].
 @override@JsonKey() final  int weekStartsOn;
 @override@JsonKey() final  bool idleDetection;
@@ -229,6 +234,7 @@ class _AppSettings implements AppSettings {
 @override@JsonKey() final  int reminderMinuteOfDay;
 @override@JsonKey() final  bool runningTimerNotification;
 @override@JsonKey() final  ThemePreference theme;
+@override@JsonKey() final  AppLanguage language;
 
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
@@ -240,16 +246,16 @@ _$AppSettingsCopyWith<_AppSettings> get copyWith => __$AppSettingsCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppSettings&&(identical(other.onboardingComplete, onboardingComplete) || other.onboardingComplete == onboardingComplete)&&(identical(other.dailyGoalMinutes, dailyGoalMinutes) || other.dailyGoalMinutes == dailyGoalMinutes)&&(identical(other.weekStartsOn, weekStartsOn) || other.weekStartsOn == weekStartsOn)&&(identical(other.idleDetection, idleDetection) || other.idleDetection == idleDetection)&&(identical(other.remindToStart, remindToStart) || other.remindToStart == remindToStart)&&(identical(other.reminderMinuteOfDay, reminderMinuteOfDay) || other.reminderMinuteOfDay == reminderMinuteOfDay)&&(identical(other.runningTimerNotification, runningTimerNotification) || other.runningTimerNotification == runningTimerNotification)&&(identical(other.theme, theme) || other.theme == theme));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppSettings&&(identical(other.onboardingComplete, onboardingComplete) || other.onboardingComplete == onboardingComplete)&&(identical(other.dailyGoalMinutes, dailyGoalMinutes) || other.dailyGoalMinutes == dailyGoalMinutes)&&(identical(other.focusGoalMinutes, focusGoalMinutes) || other.focusGoalMinutes == focusGoalMinutes)&&(identical(other.weekStartsOn, weekStartsOn) || other.weekStartsOn == weekStartsOn)&&(identical(other.idleDetection, idleDetection) || other.idleDetection == idleDetection)&&(identical(other.remindToStart, remindToStart) || other.remindToStart == remindToStart)&&(identical(other.reminderMinuteOfDay, reminderMinuteOfDay) || other.reminderMinuteOfDay == reminderMinuteOfDay)&&(identical(other.runningTimerNotification, runningTimerNotification) || other.runningTimerNotification == runningTimerNotification)&&(identical(other.theme, theme) || other.theme == theme)&&(identical(other.language, language) || other.language == language));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,onboardingComplete,dailyGoalMinutes,weekStartsOn,idleDetection,remindToStart,reminderMinuteOfDay,runningTimerNotification,theme);
+int get hashCode => Object.hash(runtimeType,onboardingComplete,dailyGoalMinutes,focusGoalMinutes,weekStartsOn,idleDetection,remindToStart,reminderMinuteOfDay,runningTimerNotification,theme,language);
 
 @override
 String toString() {
-  return 'AppSettings(onboardingComplete: $onboardingComplete, dailyGoalMinutes: $dailyGoalMinutes, weekStartsOn: $weekStartsOn, idleDetection: $idleDetection, remindToStart: $remindToStart, reminderMinuteOfDay: $reminderMinuteOfDay, runningTimerNotification: $runningTimerNotification, theme: $theme)';
+  return 'AppSettings(onboardingComplete: $onboardingComplete, dailyGoalMinutes: $dailyGoalMinutes, focusGoalMinutes: $focusGoalMinutes, weekStartsOn: $weekStartsOn, idleDetection: $idleDetection, remindToStart: $remindToStart, reminderMinuteOfDay: $reminderMinuteOfDay, runningTimerNotification: $runningTimerNotification, theme: $theme, language: $language)';
 }
 
 
@@ -260,7 +266,7 @@ abstract mixin class _$AppSettingsCopyWith<$Res> implements $AppSettingsCopyWith
   factory _$AppSettingsCopyWith(_AppSettings value, $Res Function(_AppSettings) _then) = __$AppSettingsCopyWithImpl;
 @override @useResult
 $Res call({
- bool onboardingComplete, int dailyGoalMinutes, int weekStartsOn, bool idleDetection, bool remindToStart, int reminderMinuteOfDay, bool runningTimerNotification, ThemePreference theme
+ bool onboardingComplete, int dailyGoalMinutes, int focusGoalMinutes, int weekStartsOn, bool idleDetection, bool remindToStart, int reminderMinuteOfDay, bool runningTimerNotification, ThemePreference theme, AppLanguage language
 });
 
 
@@ -277,17 +283,19 @@ class __$AppSettingsCopyWithImpl<$Res>
 
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? onboardingComplete = null,Object? dailyGoalMinutes = null,Object? weekStartsOn = null,Object? idleDetection = null,Object? remindToStart = null,Object? reminderMinuteOfDay = null,Object? runningTimerNotification = null,Object? theme = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? onboardingComplete = null,Object? dailyGoalMinutes = null,Object? focusGoalMinutes = null,Object? weekStartsOn = null,Object? idleDetection = null,Object? remindToStart = null,Object? reminderMinuteOfDay = null,Object? runningTimerNotification = null,Object? theme = null,Object? language = null,}) {
   return _then(_AppSettings(
 onboardingComplete: null == onboardingComplete ? _self.onboardingComplete : onboardingComplete // ignore: cast_nullable_to_non_nullable
 as bool,dailyGoalMinutes: null == dailyGoalMinutes ? _self.dailyGoalMinutes : dailyGoalMinutes // ignore: cast_nullable_to_non_nullable
+as int,focusGoalMinutes: null == focusGoalMinutes ? _self.focusGoalMinutes : focusGoalMinutes // ignore: cast_nullable_to_non_nullable
 as int,weekStartsOn: null == weekStartsOn ? _self.weekStartsOn : weekStartsOn // ignore: cast_nullable_to_non_nullable
 as int,idleDetection: null == idleDetection ? _self.idleDetection : idleDetection // ignore: cast_nullable_to_non_nullable
 as bool,remindToStart: null == remindToStart ? _self.remindToStart : remindToStart // ignore: cast_nullable_to_non_nullable
 as bool,reminderMinuteOfDay: null == reminderMinuteOfDay ? _self.reminderMinuteOfDay : reminderMinuteOfDay // ignore: cast_nullable_to_non_nullable
 as int,runningTimerNotification: null == runningTimerNotification ? _self.runningTimerNotification : runningTimerNotification // ignore: cast_nullable_to_non_nullable
 as bool,theme: null == theme ? _self.theme : theme // ignore: cast_nullable_to_non_nullable
-as ThemePreference,
+as ThemePreference,language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
+as AppLanguage,
   ));
 }
 

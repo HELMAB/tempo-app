@@ -150,4 +150,47 @@ void main() {
       expect((await repository.getEntry(id))?.projectId, isNull);
     });
   });
+
+  group('totals', () {
+    test('sums finished entries per project within the range', () async {
+      final project = await ProjectRepository(
+        database: database,
+      ).createProject(name: 'Flutter course', color: 0);
+      Future<void> add(int? projectId, DateTime start, Duration length) =>
+          repository.addEntry(
+            projectId: projectId,
+            startAt: start,
+            endAt: start.add(length),
+          );
+      await add(
+        project.id,
+        DateTime(2026, 10, 19, 9),
+        const Duration(hours: 2),
+      );
+      await add(
+        project.id,
+        DateTime(2026, 10, 20, 9),
+        const Duration(minutes: 30),
+      );
+      await add(null, DateTime(2026, 10, 20, 11), const Duration(minutes: 15));
+      // Before the range, and a running entry: both left out.
+      await add(
+        project.id,
+        DateTime(2026, 10, 12, 9),
+        const Duration(hours: 5),
+      );
+      await repository.startTimer(projectId: project.id);
+
+      final week = await repository
+          .watchFinishedTotalsByProject(from: DateTime(2026, 10, 19))
+          .first;
+      expect(week, {
+        project.id: const Duration(hours: 2, minutes: 30),
+        null: const Duration(minutes: 15),
+      });
+
+      final allTime = await repository.watchFinishedTotalsByProject().first;
+      expect(allTime[project.id], const Duration(hours: 7, minutes: 30));
+    });
+  });
 }

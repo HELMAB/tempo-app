@@ -4,6 +4,8 @@ part 'project.freezed.dart';
 
 @freezed
 abstract class Project with _$Project {
+  const Project._();
+
   const factory Project({
     required int id,
     required String name,
@@ -14,4 +16,6 @@ abstract class Project with _$Project {
     @Default(true) bool countsTowardDailyGoal,
     @Default(false) bool archived,
   }) = _Project;
+
+  Duration get weeklyGoal => Duration(minutes: weeklyGoalMinutes);
 }

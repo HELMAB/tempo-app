@@ -1,0 +1,495 @@
+{
+  "@@locale": "en",
+  "navToday": "Today",
+  "@navToday": {
+    "description": "Bottom tab and Today screen title."
+  },
+  "navProjects": "Projects",
+  "@navProjects": {
+    "description": "Bottom tab and Projects screen title."
+  },
+  "navReports": "Reports",
+  "@navReports": {
+    "description": "Bottom tab and Reports screen title."
+  },
+  "navSettings": "Settings",
+  "@navSettings": {
+    "description": "Bottom tab and Settings screen title."
+  },
+  "noProject": "No project",
+  "@noProject": {
+    "description": "Shown instead of a project name when an entry has none."
+  },
+  "noDescription": "No description",
+  "@noDescription": {
+    "description": "Shown when a time entry has an empty description."
+  },
+  "projectPickerTitle": "Project",
+  "@projectPickerTitle": {
+    "description": "Title of the bottom sheet for choosing a project."
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Dismisses a dialog without changes."
+  },
+  "add": "Add",
+  "@add": {
+    "description": "Confirms adding an item in a dialog."
+  },
+  "close": "Close",
+  "@close": {
+    "description": "Tooltip for a button that closes the screen."
+  },
+  "more": "More",
+  "@more": {
+    "description": "Tooltip for the overflow menu button."
+  },
+  "durationHoursMinutes": "{hours}h {minutes}m",
+  "@durationHoursMinutes": {
+    "description": "A duration of whole hours plus minutes, e.g. 5h 42m. Minutes are zero-padded.",
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "example": "5"
+      },
+      "minutes": {
+        "type": "String",
+        "example": "05"
+      }
+    }
+  },
+  "durationMinutes": "{minutes}m",
+  "@durationMinutes": {
+    "description": "A duration under one hour, e.g. 48m.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "48"
+      }
+    }
+  },
+  "durationHours": "{hours}h",
+  "@durationHours": {
+    "description": "A whole number of hours, used for goals, e.g. 8h.",
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "example": "8"
+      }
+    }
+  },
+  "onboardingSkip": "Skip",
+  "@onboardingSkip": {
+    "description": "Skips onboarding."
+  },
+  "onboardingTrackedToday": "tracked today",
+  "@onboardingTrackedToday": {
+    "description": "Caption under the sample total in the onboarding ring."
+  },
+  "onboardingHeadline": "Know where your hours go.",
+  "@onboardingHeadline": {
+    "description": "Onboarding headline."
+  },
+  "onboardingBody": "Start a timer in one tap, sort your time by project, and see your week at a glance.",
+  "@onboardingBody": {
+    "description": "Onboarding body text."
+  },
+  "onboardingFeatureTimer": "One-tap start and stop",
+  "@onboardingFeatureTimer": {
+    "description": "Onboarding feature list item."
+  },
+  "onboardingFeatureProjects": "Projects with weekly goals",
+  "@onboardingFeatureProjects": {
+    "description": "Onboarding feature list item."
+  },
+  "onboardingFeatureReports": "Weekly reports, offline-first",
+  "@onboardingFeatureReports": {
+    "description": "Onboarding feature list item."
+  },
+  "onboardingGetStarted": "Get started",
+  "@onboardingGetStarted": {
+    "description": "Finishes onboarding and opens Today."
+  },
+  "onboardingSaveError": "Could not save, please try again.",
+  "@onboardingSaveError": {
+    "description": "Snackbar when finishing onboarding fails."
+  },
+  "todayLoadError": "Could not load today.",
+  "@todayLoadError": {
+    "description": "Error shown when Today fails to load."
+  },
+  "trackedToday": "Tracked today",
+  "@trackedToday": {
+    "description": "Label of the daily total card."
+  },
+  "goalProgress": "{percent}% of {goal} goal",
+  "@goalProgress": {
+    "description": "Progress toward the daily goal, e.g. 71% of 8h goal.",
+    "placeholders": {
+      "percent": {
+        "type": "int",
+        "example": "71"
+      },
+      "goal": {
+        "type": "String",
+        "example": "8h"
+      }
+    }
+  },
+  "quickStartHint": "What are you working on?",
+  "@quickStartHint": {
+    "description": "Hint of the quick-start description field."
+  },
+  "startTimer": "Start timer",
+  "@startTimer": {
+    "description": "Tooltip of the button that starts a timer."
+  },
+  "stopTimer": "Stop timer",
+  "@stopTimer": {
+    "description": "Tooltip of the button that stops the running timer."
+  },
+  "entriesTitle": "Entries",
+  "@entriesTitle": {
+    "description": "Section title above today's time entries."
+  },
+  "addManually": "Add manually",
+  "@addManually": {
+    "description": "Opens the editor to add a time entry by hand."
+  },
+  "entriesEmpty": "No entries yet. Start a timer or add one manually.",
+  "@entriesEmpty": {
+    "description": "Shown when today has no entries."
+  },
+  "continueEntry": "Continue",
+  "@continueEntry": {
+    "description": "Tooltip: starts a new timer with the same details as an entry."
+  },
+  "timerLoadError": "Could not load the timer.",
+  "@timerLoadError": {
+    "description": "Error shown when the timer screen fails to load."
+  },
+  "timerNothingRunning": "No timer running",
+  "@timerNothingRunning": {
+    "description": "Timer screen when nothing is running."
+  },
+  "backToToday": "Back to Today",
+  "@backToToday": {
+    "description": "Button that returns to the Today screen."
+  },
+  "timerTracking": "Tracking",
+  "@timerTracking": {
+    "description": "Timer status while running."
+  },
+  "timerPaused": "Paused",
+  "@timerPaused": {
+    "description": "Timer status while paused."
+  },
+  "focusGoal": "of {goal} focus goal",
+  "@focusGoal": {
+    "description": "Caption under the running time, e.g. of 2h focus goal.",
+    "placeholders": {
+      "goal": {
+        "type": "String",
+        "example": "2h"
+      }
+    }
+  },
+  "timerStarted": "Started",
+  "@timerStarted": {
+    "description": "Label before the time the timer started, e.g. Started 17:02."
+  },
+  "timerDiscard": "Discard",
+  "@timerDiscard": {
+    "description": "Deletes the running timer without saving."
+  },
+  "timerStopAndSave": "Stop & save",
+  "@timerStopAndSave": {
+    "description": "Stops the timer and keeps the entry."
+  },
+  "timerPause": "Pause",
+  "@timerPause": {
+    "description": "Pauses the running timer."
+  },
+  "timerResume": "Resume",
+  "@timerResume": {
+    "description": "Resumes a paused timer."
+  },
+  "timerNote": "Note",
+  "@timerNote": {
+    "description": "Label above the note field."
+  },
+  "timerNoteHint": "What did you get done?",
+  "@timerNoteHint": {
+    "description": "Hint of the note field."
+  },
+  "timerAddTag": "+ Tag",
+  "@timerAddTag": {
+    "description": "Chip that adds a new tag."
+  },
+  "editEntry": "Edit entry",
+  "@editEntry": {
+    "description": "Menu item and screen title for editing a time entry."
+  },
+  "discardDialogTitle": "Discard this timer?",
+  "@discardDialogTitle": {
+    "description": "Title of the discard confirmation."
+  },
+  "discardDialogBody": "The time tracked in this session is not saved.",
+  "@discardDialogBody": {
+    "description": "Body of the discard confirmation."
+  },
+  "discardDialogKeep": "Keep",
+  "@discardDialogKeep": {
+    "description": "Closes the discard confirmation and keeps the timer."
+  },
+  "newTagTitle": "New tag",
+  "@newTagTitle": {
+    "description": "Title of the new tag dialog."
+  },
+  "newTagHint": "e.g. Deep work",
+  "@newTagHint": {
+    "description": "Example in the new tag field."
+  },
+  "newEntryTitle": "New entry",
+  "@newEntryTitle": {
+    "description": "Title of the editor when adding an entry."
+  },
+  "newProjectTitle": "New project",
+  "@newProjectTitle": {
+    "description": "Title of the new project sheet and its button."
+  },
+  "screenNotBuilt": "Not built yet · see prototype/{file}",
+  "@screenNotBuilt": {
+    "description": "Temporary note on screens that are not built yet.",
+    "placeholders": {
+      "file": {
+        "type": "String",
+        "example": "05 · Projects.png"
+      }
+    }
+  },
+  "settingsLanguage": "Language",
+  "@settingsLanguage": {
+    "description": "Settings row for choosing the app language."
+  },
+  "timeNow": "now",
+  "@timeNow": {
+    "description": "End of a time range while the timer is still running, e.g. 17:02–now."
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Saves the form."
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Confirms deleting something."
+  },
+  "saveFailed": "Could not save, please try again.",
+  "@saveFailed": {
+    "description": "Snackbar when saving fails."
+  },
+  "entryDescription": "Description",
+  "@entryDescription": {
+    "description": "Label of the entry description field."
+  },
+  "entryDescriptionHint": "What did you work on?",
+  "@entryDescriptionHint": {
+    "description": "Hint of the entry description field."
+  },
+  "entryDate": "Date",
+  "@entryDate": {
+    "description": "Label of the entry date row."
+  },
+  "entryStart": "Start",
+  "@entryStart": {
+    "description": "Label of the entry start time field."
+  },
+  "entryEnd": "End",
+  "@entryEnd": {
+    "description": "Label of the entry end time field."
+  },
+  "entryDuration": "Duration",
+  "@entryDuration": {
+    "description": "Label of the computed entry duration."
+  },
+  "entryTags": "Tags",
+  "@entryTags": {
+    "description": "Label above the tag chips."
+  },
+  "entryNewTag": "+ New tag",
+  "@entryNewTag": {
+    "description": "Chip that creates a new tag."
+  },
+  "entryNoteHint": "Anything worth remembering?",
+  "@entryNoteHint": {
+    "description": "Hint of the entry note field."
+  },
+  "entryRunning": "Running",
+  "@entryRunning": {
+    "description": "Shown instead of an end time while the entry's timer runs."
+  },
+  "entryDelete": "Delete entry",
+  "@entryDelete": {
+    "description": "Button that deletes the entry."
+  },
+  "entryDeleteTitle": "Delete this entry?",
+  "@entryDeleteTitle": {
+    "description": "Title of the delete confirmation."
+  },
+  "entryDeleteBody": "This can't be undone.",
+  "@entryDeleteBody": {
+    "description": "Body of the delete confirmation."
+  },
+  "entryEndBeforeStart": "End must be after start.",
+  "@entryEndBeforeStart": {
+    "description": "Validation error for the entry times."
+  },
+  "entryStartInFuture": "Start can't be in the future.",
+  "@entryStartInFuture": {
+    "description": "Validation error for the entry start time."
+  },
+  "entryNotFound": "This entry no longer exists.",
+  "@entryNotFound": {
+    "description": "Shown when opening an entry that was deleted."
+  },
+  "entryLoadError": "Could not load the entry.",
+  "@entryLoadError": {
+    "description": "Error shown when the entry editor fails to load."
+  },
+  "projectsLoadError": "Could not load projects.",
+  "@projectsLoadError": {
+    "description": "Error shown when Projects fails to load."
+  },
+  "projectsThisWeek": "This week",
+  "@projectsThisWeek": {
+    "description": "Projects segment: totals for the current week."
+  },
+  "projectsAllTime": "All time",
+  "@projectsAllTime": {
+    "description": "Projects segment: totals since the start."
+  },
+  "projectsEmpty": "No projects yet. Create one to set a weekly goal.",
+  "@projectsEmpty": {
+    "description": "Shown when there are no active projects."
+  },
+  "projectTotal": "{tracked} in total",
+  "@projectTotal": {
+    "description": "Project card subtitle for all-time totals, e.g. 42h 10m in total."
+  },
+  "editProjectTitle": "Edit project",
+  "@editProjectTitle": {
+    "description": "Title of the project sheet when editing."
+  },
+  "projectName": "Name",
+  "@projectName": {
+    "description": "Label of the project name field."
+  },
+  "projectNameHint": "e.g. Side project",
+  "@projectNameHint": {
+    "description": "Hint of the project name field."
+  },
+  "projectColour": "Colour",
+  "@projectColour": {
+    "description": "Label above the project colour swatches."
+  },
+  "projectWeeklyGoal": "Weekly goal",
+  "@projectWeeklyGoal": {
+    "description": "Label of the weekly goal stepper."
+  },
+  "projectNoGoal": "No weekly goal",
+  "@projectNoGoal": {
+    "description": "Shown when the weekly goal is zero."
+  },
+  "projectDecreaseGoal": "Decrease weekly goal",
+  "@projectDecreaseGoal": {
+    "description": "Tooltip of the minus button."
+  },
+  "projectIncreaseGoal": "Increase weekly goal",
+  "@projectIncreaseGoal": {
+    "description": "Tooltip of the plus button."
+  },
+  "projectCountsTowardDaily": "Count toward daily goal",
+  "@projectCountsTowardDaily": {
+    "description": "Switch title in the project sheet."
+  },
+  "projectCreate": "Create project",
+  "@projectCreate": {
+    "description": "Button that creates the project."
+  },
+  "projectArchive": "Archive project",
+  "@projectArchive": {
+    "description": "Button that archives the project."
+  },
+  "projectRestore": "Restore project",
+  "@projectRestore": {
+    "description": "Button that restores an archived project."
+  },
+  "projectNotFound": "This project no longer exists.",
+  "@projectNotFound": {
+    "description": "Shown when opening a project that was deleted."
+  },
+  "projectsActiveCount": "{count, plural, other{{count} active}}",
+  "@projectsActiveCount": {
+    "description": "Subtitle above the Projects title, e.g. 5 active.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "projectGoalProgress": "{tracked} of {goal} goal",
+  "@projectGoalProgress": {
+    "description": "Project card subtitle, e.g. 9h 15m of 10h goal.",
+    "placeholders": {
+      "tracked": {
+        "type": "String",
+        "example": "9h 15m"
+      },
+      "goal": {
+        "type": "String",
+        "example": "10h"
+      }
+    }
+  },
+  "projectsArchivedCount": "Archived · {count}",
+  "@projectsArchivedCount": {
+    "description": "Row that shows archived projects.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "projectGoalPerDay": "about {perDay} a day",
+  "@projectGoalPerDay": {
+    "description": "Under the weekly goal, e.g. about 43m a day.",
+    "placeholders": {
+      "perDay": {
+        "type": "String",
+        "example": "43m"
+      }
+    }
+  },
+  "projectCountsTowardDailyBody": "Adds this project's time to your {goal} target",
+  "@projectCountsTowardDailyBody": {
+    "description": "Switch subtitle, e.g. Adds this project's time to your 8h target.",
+    "placeholders": {
+      "goal": {
+        "type": "String",
+        "example": "8h"
+      }
+    }
+  },
+  "projectColourLabel": "Colour {number}",
+  "@projectColourLabel": {
+    "description": "Accessibility label of a colour swatch.",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  }
+}

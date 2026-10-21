@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../routing/routes.dart';
+import '../../../core/formatters/duration_format.dart';
+import '../../../core/localization.dart';
 import '../../../core/widgets/progress_ring.dart';
 import '../view_models/onboarding_view_model.dart';
 
@@ -17,7 +19,7 @@ class OnboardingScreen extends ConsumerWidget {
           context.go(Routes.today);
         case AsyncError():
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Could not save, please try again.')),
+            SnackBar(content: Text(context.l10n.onboardingSaveError)),
           );
         default:
       }
@@ -27,6 +29,7 @@ class OnboardingScreen extends ConsumerWidget {
     final viewModel = ref.read(onboardingViewModelProvider.notifier);
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
+    final l10n = context.l10n;
 
     return Scaffold(
       backgroundColor: colors.surface,
@@ -56,13 +59,13 @@ class OnboardingScreen extends ConsumerWidget {
                   Text(
                     'Tempo',
                     style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                   const Spacer(),
                   TextButton(
                     onPressed: status.isLoading ? null : viewModel.getStarted,
-                    child: const Text('Skip'),
+                    child: Text(l10n.onboardingSkip),
                   ),
                 ],
               ),
@@ -75,9 +78,15 @@ class OnboardingScreen extends ConsumerWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text('5h 42m', style: theme.textTheme.displaySmall),
                           Text(
-                            'tracked today',
+                            formatHoursMinutes(
+                              const Duration(hours: 5, minutes: 42),
+                              l10n,
+                            ),
+                            style: theme.textTheme.displaySmall,
+                          ),
+                          Text(
+                            l10n.onboardingTrackedToday,
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: colors.onSurfaceVariant,
                             ),
@@ -89,35 +98,33 @@ class OnboardingScreen extends ConsumerWidget {
                 ),
               ),
               Text(
-                'Know where your hours go.',
+                l10n.onboardingHeadline,
                 style: theme.textTheme.headlineMedium,
               ),
               const SizedBox(height: 12),
               Text(
-                'Start a timer in one tap, sort your time by project, '
-                'and see your week at a glance.',
+                l10n.onboardingBody,
                 style: theme.textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w500,
                   color: colors.onSurfaceVariant,
                 ),
               ),
               const SizedBox(height: 24),
-              const _Feature(
+              _Feature(
                 icon: Icons.play_arrow_rounded,
-                label: 'One-tap start and stop',
+                label: l10n.onboardingFeatureTimer,
               ),
-              const _Feature(
+              _Feature(
                 icon: Icons.folder_outlined,
-                label: 'Projects with weekly goals',
+                label: l10n.onboardingFeatureProjects,
               ),
-              const _Feature(
+              _Feature(
                 icon: Icons.bar_chart_outlined,
-                label: 'Weekly reports, offline-first',
+                label: l10n.onboardingFeatureReports,
               ),
               const SizedBox(height: 32),
               FilledButton(
                 onPressed: status.isLoading ? null : viewModel.getStarted,
-                child: const Text('Get started'),
+                child: Text(l10n.onboardingGetStarted),
               ),
               const SizedBox(height: 24),
             ],
@@ -153,7 +160,9 @@ class _Feature extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 12),
-          Text(label, style: Theme.of(context).textTheme.bodyLarge),
+          Expanded(
+            child: Text(label, style: Theme.of(context).textTheme.bodyLarge),
+          ),
         ],
       ),
     );

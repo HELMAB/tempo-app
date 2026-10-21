@@ -1,0 +1,8 @@
+# Khmer is the app's primary language (default locale, see AppLanguage).
+# English is the template because it carries the descriptions translators
+# work from; every key must exist in both files.
+arb-dir: lib/l10n
+template-arb-file: app_en.arb
+output-localization-file: app_localizations.dart
+nullable-getter: false
+required-resource-attributes: true

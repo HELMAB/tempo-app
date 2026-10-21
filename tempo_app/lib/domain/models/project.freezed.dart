@@ -212,8 +212,8 @@ return $default(_that.id,_that.name,_that.color,_that.weeklyGoalMinutes,_that.co
 /// @nodoc
 
 
-class _Project implements Project {
-  const _Project({required this.id, required this.name, required this.color, this.weeklyGoalMinutes = 0, this.countsTowardDailyGoal = true, this.archived = false});
+class _Project extends Project {
+  const _Project({required this.id, required this.name, required this.color, this.weeklyGoalMinutes = 0, this.countsTowardDailyGoal = true, this.archived = false}): super._();
   
 
 @override final  int id;
