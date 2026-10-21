@@ -6,6 +6,7 @@ import '../../../../routing/routes.dart';
 import '../../../core/formatters/duration_format.dart';
 import '../../../core/localization.dart';
 import '../../../core/widgets/progress_ring.dart';
+import '../../../core/widgets/tempo_logo.dart';
 import '../view_models/onboarding_view_model.dart';
 
 class OnboardingScreen extends ConsumerWidget {
@@ -42,19 +43,7 @@ class OnboardingScreen extends ConsumerWidget {
               const SizedBox(height: 16),
               Row(
                 children: [
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: colors.primary,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4),
-                      child: Icon(
-                        Icons.timer_outlined,
-                        color: colors.onPrimary,
-                      ),
-                    ),
-                  ),
+                  const TempoLogo(),
                   const SizedBox(width: 8),
                   Text(
                     'Tempo',

@@ -1,11 +1,11 @@
 {
-    "name": "tempo_app",
-    "short_name": "tempo_app",
+    "name": "Tempo",
+    "short_name": "Tempo",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#FFFFFF",
+    "theme_color": "#2B50E6",
+    "description": "Offline-first time tracker with projects, weekly goals and reports.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

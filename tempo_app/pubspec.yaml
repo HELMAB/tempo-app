@@ -34,6 +34,7 @@ dependencies:
   share_plus: ^13.3.1
   file_selector: ^1.1.0
   package_info_plus: ^10.2.2
+  flutter_native_splash: ^2.4.8
 
   # Added later, following the build order in README.md:
   #   fl_chart (Reports), flutter_local_notifications (Settings › Reminders).
@@ -50,7 +51,6 @@ dev_dependencies:
   freezed: 4.0.0-dev.3
   shared_preferences_platform_interface: ^2.4.2
   meta: ^1.18.0
-
 flutter:
   uses-material-design: true
   # Generates AppLocalizations from lib/l10n/*.arb (see l10n.yaml).

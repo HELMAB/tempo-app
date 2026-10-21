@@ -1,0 +1,26 @@
+# Native splash screens (Android, iOS, web), shown until Flutter draws its
+# first frame. Images come from tool/generate_brand_assets.dart. Regenerate:
+#
+#   flutter test tool/generate_brand_assets.dart
+#   dart run flutter_native_splash:create --path=flutter_native_splash.yaml
+flutter_native_splash:
+  # Light: white, as the onboarding screen. Dark: the app's dark surface.
+  color: "#FFFFFF"
+  color_dark: "#111318"
+  image: branding/splash_logo.png
+  image_dark: branding/splash_logo.png
+
+  # Android 12+ draws its own splash: the white stopwatch inside a
+  # brand-blue circle.
+  android_12:
+    color: "#FFFFFF"
+    color_dark: "#111318"
+    image: branding/splash_android12.png
+    image_dark: branding/splash_android12.png
+    icon_background_color: "#2B50E6"
+    icon_background_color_dark: "#2B50E6"
+
+  android: true
+  ios: true
+  web: true
+  web_image_mode: center
