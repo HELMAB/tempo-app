@@ -102,6 +102,41 @@ they cover many scripts; subsetting them to Latin + Khmer would cut that a lot.
 (stacked vowels and subscript consonants need the room) and no letter-spacing,
 which would break Khmer shaping.
 
+### Brand, splash and motion
+
+- **Logo:** `TempoLogo` (white stopwatch on brand blue) is the single source.
+  `tool/generate_brand_assets.dart` renders it into `web/favicon.png`,
+  `web/icons/*` (incl. maskable) and `branding/splash_*.png`. Regenerate:
+
+  ```sh
+  flutter test tool/generate_brand_assets.dart
+  dart run flutter_native_splash:create --path=flutter_native_splash.yaml
+  ```
+
+- **Splash:** native splash (Android incl. 12+, iOS, web) is brand blue
+  (`#1E3CB8` in dark mode) with the stopwatch at 96 dp. `main()` holds it
+  while preferences load, then `LaunchOverlay` takes over on an identical
+  first frame and plays a ~1.3 s intro: a ring sweeps round the stopwatch,
+  the logo lifts away, and a circle opens to reveal the app.
+- **Motion tokens:** `AppMotion` (durations + Material 3 easing). Always go
+  through `AppMotion.of(context, …)`: it returns zero when the OS
+  "reduce motion" setting is on, and the launch intro, pulses and
+  entrances are then skipped.
+- **Shared pieces** (`ui/core/widgets/motion.dart`): `FadeSlideIn`
+  (staggered list entrance; key it by id so only new rows animate),
+  `CountUpDuration`, `AnimatedProgressBar`, `PulsingDot`, `ScaleSwitcher`
+  and `SmoothSize`. Use `SmoothSize` rather than `AnimatedSize`, which asserts
+  with a zero duration. `ProgressRing` sweeps in and glides; the timer runs it
+  linearly over each second so it moves continuously.
+- **Navigation:** routes use Material 3 fade-forwards (Cupertino slide on
+  iOS / macOS); tabs fade through (`FadeThroughBranches`) and keep their
+  state. Segmented controls slide their pill.
+- **Haptics** (`ui/core/haptics.dart`) on start / stop / pause; fire-and-forget,
+  so a platform without haptics can't block the action.
+- **Tests:** `testApp` turns reduce-motion on by default so `pumpAndSettle`
+  never waits on repeating animations; pass `reduceMotion: false` to test the
+  motion itself (see `test/ui/core/motion_test.dart`).
+
 ### Localization
 
 **Khmer is the primary language.** `AppSettings.language` defaults to
