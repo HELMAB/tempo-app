@@ -4,6 +4,7 @@ import '../../../../domain/models/project.dart';
 import '../../../../domain/use_cases/period_report.dart';
 import '../../../core/formatters/duration_format.dart';
 import '../../../core/localization.dart';
+import '../../../core/widgets/motion.dart';
 import '../../../core/widgets/project_chip.dart';
 
 /// Stacked bar of time per project, then one row per project.
@@ -67,27 +68,32 @@ class ProjectBreakdown extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              for (final MapEntry(key: id, value: time) in rows)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Row(
-                    children: [
-                      ProjectDot(project: projectsById[id], size: 12),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          projectsById[id]?.name ?? l10n.noProject,
-                          overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.bodyLarge,
+              for (final (index, MapEntry(key: id, value: time))
+                  in rows.indexed)
+                FadeSlideIn(
+                  key: ValueKey(id),
+                  index: index,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      children: [
+                        ProjectDot(project: projectsById[id], size: 12),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Text(
+                            projectsById[id]?.name ?? l10n.noProject,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.bodyLarge,
+                          ),
                         ),
-                      ),
-                      Text(
-                        formatHoursMinutes(time, l10n),
-                        style: theme.textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w700,
+                        Text(
+                          formatHoursMinutes(time, l10n),
+                          style: theme.textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
             ],

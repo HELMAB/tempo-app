@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart' show CupertinoPageTransitionsBuilder;
 import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
@@ -51,6 +52,18 @@ abstract final class AppTheme {
 
     return ThemeData(
       useMaterial3: true,
+      // Material 3 "fade forwards" everywhere except Apple platforms, which
+      // keep their native slide (and swipe-back).
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: FadeForwardsPageTransitionsBuilder(),
+          TargetPlatform.fuchsia: FadeForwardsPageTransitionsBuilder(),
+          TargetPlatform.linux: FadeForwardsPageTransitionsBuilder(),
+          TargetPlatform.windows: FadeForwardsPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+        },
+      ),
       fontFamily: fontFamily,
       colorScheme: scheme,
       scaffoldBackgroundColor: scheme.surfaceContainerLow,

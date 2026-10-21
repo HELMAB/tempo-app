@@ -5,12 +5,16 @@ import 'package:go_router/go_router.dart';
 import '../../../../routing/routes.dart';
 import '../../../core/formatters/duration_format.dart';
 import '../../../core/localization.dart';
+import '../../../core/widgets/motion.dart';
 import '../../../core/widgets/progress_ring.dart';
 import '../../../core/widgets/tempo_logo.dart';
 import '../view_models/onboarding_view_model.dart';
 
 class OnboardingScreen extends ConsumerWidget {
   const OnboardingScreen({super.key});
+
+  /// Onboarding is the first screen after launch: let the reveal run first.
+  static const _entranceDelay = Duration(milliseconds: 700);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -67,11 +71,9 @@ class OnboardingScreen extends ConsumerWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
-                            formatHoursMinutes(
-                              const Duration(hours: 5, minutes: 42),
-                              l10n,
-                            ),
+                          CountUpDuration(
+                            duration: const Duration(hours: 5, minutes: 42),
+                            format: (d) => formatHoursMinutes(d, l10n),
                             style: theme.textTheme.displaySmall,
                           ),
                           Text(
@@ -86,42 +88,70 @@ class OnboardingScreen extends ConsumerWidget {
                   ),
                 ),
               ),
-              Text(
-                l10n.onboardingHeadline,
-                style: theme.textTheme.headlineMedium,
+              FadeSlideIn(
+                index: 0,
+                delay: OnboardingScreen._entranceDelay,
+                child: Text(
+                  l10n.onboardingHeadline,
+                  style: theme.textTheme.headlineMedium,
+                ),
               ),
               const SizedBox(height: 12),
-              Text(
-                l10n.onboardingBody,
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  color: colors.onSurfaceVariant,
+              FadeSlideIn(
+                index: 1,
+                delay: OnboardingScreen._entranceDelay,
+                child: Text(
+                  l10n.onboardingBody,
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    color: colors.onSurfaceVariant,
+                  ),
                 ),
               ),
               const SizedBox(height: 24),
-              _Feature(
-                icon: Icons.play_arrow_rounded,
-                label: l10n.onboardingFeatureTimer,
+              FadeSlideIn(
+                index: 2,
+                delay: OnboardingScreen._entranceDelay,
+                child: _Feature(
+                  icon: Icons.play_arrow_rounded,
+                  label: l10n.onboardingFeatureTimer,
+                ),
               ),
-              _Feature(
-                icon: Icons.folder_outlined,
-                label: l10n.onboardingFeatureProjects,
+              FadeSlideIn(
+                index: 3,
+                delay: OnboardingScreen._entranceDelay,
+                child: _Feature(
+                  icon: Icons.folder_outlined,
+                  label: l10n.onboardingFeatureProjects,
+                ),
               ),
-              _Feature(
-                icon: Icons.bar_chart_outlined,
-                label: l10n.onboardingFeatureReports,
+              FadeSlideIn(
+                index: 4,
+                delay: OnboardingScreen._entranceDelay,
+                child: _Feature(
+                  icon: Icons.bar_chart_outlined,
+                  label: l10n.onboardingFeatureReports,
+                ),
               ),
               const SizedBox(height: 32),
-              FilledButton(
-                onPressed: status.isLoading ? null : viewModel.getStarted,
-                child: Text(l10n.onboardingGetStarted),
+              FadeSlideIn(
+                index: 5,
+                delay: OnboardingScreen._entranceDelay,
+                child: FilledButton(
+                  onPressed: status.isLoading ? null : viewModel.getStarted,
+                  child: Text(l10n.onboardingGetStarted),
+                ),
               ),
               const SizedBox(height: 8),
-              Center(
-                child: TextButton(
-                  onPressed: status.isLoading
-                      ? null
-                      : () => _restore(context, viewModel),
-                  child: Text(l10n.backupRestore),
+              FadeSlideIn(
+                index: 6,
+                delay: OnboardingScreen._entranceDelay,
+                child: Center(
+                  child: TextButton(
+                    onPressed: status.isLoading
+                        ? null
+                        : () => _restore(context, viewModel),
+                    child: Text(l10n.backupRestore),
+                  ),
                 ),
               ),
               const SizedBox(height: 16),

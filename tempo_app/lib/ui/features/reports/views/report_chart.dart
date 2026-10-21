@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../../../../domain/use_cases/period_report.dart';
 import '../../../core/formatters/duration_format.dart';
 import '../../../core/localization.dart';
+import '../../../core/themes/app_motion.dart';
 
 /// Bars per hour (day), per day (week, with values on top) or per day of
 /// the month, plus a dashed average line.
@@ -46,95 +47,105 @@ class ReportChart extends StatelessWidget {
 
     return SizedBox(
       height: 220,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final slot = constraints.maxWidth / buckets.length;
-          final barWidth = (slot * 0.62).clamp(3.0, 40.0);
+      // Bars grow from the baseline whenever the shown period changes.
+      child: TweenAnimationBuilder<double>(
+        key: ValueKey(range),
+        tween: Tween(begin: 0, end: 1),
+        duration: AppMotion.of(context, AppMotion.long),
+        curve: AppMotion.enter,
+        builder: (context, grow, _) => LayoutBuilder(
+          builder: (context, constraints) {
+            final slot = constraints.maxWidth / buckets.length;
+            final barWidth = (slot * 0.62).clamp(3.0, 40.0);
 
-          return BarChart(
-            BarChartData(
-              maxY: maxY,
-              alignment: BarChartAlignment.spaceAround,
-              barTouchData: const BarTouchData(enabled: false),
-              gridData: const FlGridData(show: false),
-              borderData: FlBorderData(show: false),
-              titlesData: FlTitlesData(
-                leftTitles: const AxisTitles(),
-                rightTitles: const AxisTitles(),
-                topTitles: const AxisTitles(),
-                bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 32,
-                    getTitlesWidget: (value, meta) {
-                      final index = value.toInt();
-                      final label = _bottomLabel(index, l10n);
-                      final today = showsCurrent && index == currentIndex;
-                      return SideTitleWidget(
-                        meta: meta,
-                        child: Text(
-                          label,
-                          style: today && week
-                              ? labelStyle?.copyWith(
-                                  color: colors.primary,
-                                  fontWeight: FontWeight.w700,
-                                )
-                              : labelStyle,
-                        ),
-                      );
-                    },
+            return BarChart(
+              BarChartData(
+                maxY: maxY,
+                alignment: BarChartAlignment.spaceAround,
+                barTouchData: const BarTouchData(enabled: false),
+                gridData: const FlGridData(show: false),
+                borderData: FlBorderData(show: false),
+                titlesData: FlTitlesData(
+                  leftTitles: const AxisTitles(),
+                  rightTitles: const AxisTitles(),
+                  topTitles: const AxisTitles(),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      reservedSize: 32,
+                      getTitlesWidget: (value, meta) {
+                        final index = value.toInt();
+                        final label = _bottomLabel(index, l10n);
+                        final today = showsCurrent && index == currentIndex;
+                        return SideTitleWidget(
+                          meta: meta,
+                          child: Text(
+                            label,
+                            style: today && week
+                                ? labelStyle?.copyWith(
+                                    color: colors.primary,
+                                    fontWeight: FontWeight.w700,
+                                  )
+                                : labelStyle,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
-              extraLinesData: ExtraLinesData(
-                horizontalLines: [
-                  if (average case final average? when average > Duration.zero)
-                    HorizontalLine(
-                      y: _hours(average),
-                      color: colors.outline,
-                      strokeWidth: 1,
-                      dashArray: const [4, 4],
-                      label: HorizontalLineLabel(
-                        show: true,
-                        alignment: Alignment.topRight,
-                        padding: const EdgeInsets.only(bottom: 2),
-                        style: labelStyle,
-                        labelResolver: (_) => l10n.reportsAverage(
-                          formatGoal(_roundToMinute(average), l10n),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-              barGroups: [
-                for (final (index, bucket) in report.buckets.indexed)
-                  BarChartGroupData(
-                    x: index,
-                    barRods: [
-                      BarChartRodData(
-                        toY: _hours(bucket),
-                        width: barWidth,
-                        color: showsCurrent && index == currentIndex
-                            ? colors.onPrimaryContainer
-                            : colors.primary,
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(barWidth / 3),
-                        ),
-                        label: BarChartRodLabel(
-                          show: week && bucket > Duration.zero,
-                          text: formatCompact(bucket, l10n),
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: colors.onSurfaceVariant,
+                extraLinesData: ExtraLinesData(
+                  horizontalLines: [
+                    if (average case final average?
+                        when average > Duration.zero)
+                      HorizontalLine(
+                        y: _hours(average),
+                        color: colors.outline,
+                        strokeWidth: 1,
+                        dashArray: const [4, 4],
+                        label: HorizontalLineLabel(
+                          show: true,
+                          alignment: Alignment.topRight,
+                          padding: const EdgeInsets.only(bottom: 2),
+                          style: labelStyle,
+                          labelResolver: (_) => l10n.reportsAverage(
+                            formatGoal(_roundToMinute(average), l10n),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-              ],
-            ),
-          );
-        },
+                  ],
+                ),
+                barGroups: [
+                  for (final (index, bucket) in report.buckets.indexed)
+                    BarChartGroupData(
+                      x: index,
+                      barRods: [
+                        BarChartRodData(
+                          toY: _hours(bucket) * grow,
+                          width: barWidth,
+                          color: showsCurrent && index == currentIndex
+                              ? colors.onPrimaryContainer
+                              : colors.primary,
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(barWidth / 3),
+                          ),
+                          label: BarChartRodLabel(
+                            show: week && bucket > Duration.zero,
+                            text: formatCompact(bucket, l10n),
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: colors.onSurfaceVariant,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                ],
+              ),
+              // Our grow tween drives the motion; fl_chart's own would fight it.
+              duration: Duration.zero,
+            );
+          },
+        ),
       ),
     );
   }

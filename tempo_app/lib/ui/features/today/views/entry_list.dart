@@ -6,6 +6,7 @@ import '../../../../routing/routes.dart';
 import '../../../core/formatters/date_format.dart';
 import '../../../core/formatters/duration_format.dart';
 import '../../../core/localization.dart';
+import '../../../core/widgets/motion.dart';
 import '../../../core/widgets/project_chip.dart';
 import '../view_models/today_ui_state.dart';
 import '../view_models/today_view_model.dart';
@@ -56,7 +57,12 @@ class EntryList extends StatelessWidget {
                   children: [
                     for (final (index, item) in entries.indexed) ...[
                       if (index > 0) const Divider(),
-                      _EntryTile(item: item, now: now),
+                      // Keyed by entry, so only new rows animate in.
+                      FadeSlideIn(
+                        key: ValueKey(item.entry.id),
+                        index: index,
+                        child: _EntryTile(item: item, now: now),
+                      ),
                     ],
                   ],
                 ),

@@ -2,19 +2,29 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../themes/app_motion.dart';
+
 /// Circular progress ring used by Onboarding and the running timer.
-/// Starts at 12 o'clock and fills clockwise with rounded caps.
+/// Starts at 12 o'clock and fills clockwise with rounded caps. It sweeps in
+/// from empty and glides to each new [progress] over [duration].
 class ProgressRing extends StatelessWidget {
   const ProgressRing({
     super.key,
     required this.progress,
     this.strokeWidth = 28,
+    this.duration = AppMotion.extraLong,
+    this.curve = AppMotion.enter,
     this.child,
   });
 
   /// 0..1; values above 1 draw a full ring.
   final double progress;
   final double strokeWidth;
+
+  /// The running timer passes one second, linear, so the ring moves
+  /// continuously between its once-a-second updates.
+  final Duration duration;
+  final Curve curve;
   final Widget? child;
 
   @override
@@ -23,12 +33,18 @@ class ProgressRing extends StatelessWidget {
 
     return AspectRatio(
       aspectRatio: 1,
-      child: CustomPaint(
-        painter: _RingPainter(
-          progress: progress.clamp(0, 1),
-          strokeWidth: strokeWidth,
-          trackColor: colors.primaryContainer,
-          color: colors.primary,
+      child: TweenAnimationBuilder<double>(
+        tween: Tween(begin: 0, end: progress.clamp(0, 1)),
+        duration: AppMotion.of(context, duration),
+        curve: curve,
+        builder: (context, value, child) => CustomPaint(
+          painter: _RingPainter(
+            progress: value,
+            strokeWidth: strokeWidth,
+            trackColor: colors.primaryContainer,
+            color: colors.primary,
+          ),
+          child: child,
         ),
         child: Padding(
           padding: EdgeInsets.all(strokeWidth * 1.5),

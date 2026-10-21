@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../domain/use_cases/daily_progress.dart';
 import '../../../core/formatters/duration_format.dart';
 import '../../../core/localization.dart';
+import '../../../core/widgets/motion.dart';
 
 class TrackedCard extends StatelessWidget {
   const TrackedCard({super.key, required this.progress});
@@ -38,8 +39,9 @@ class TrackedCard extends StatelessWidget {
                 crossAxisAlignment: WrapCrossAlignment.end,
                 spacing: 12,
                 children: [
-                  Text(
-                    formatHoursMinutes(progress.tracked, l10n),
+                  CountUpDuration(
+                    duration: progress.tracked,
+                    format: (d) => formatHoursMinutes(d, l10n),
                     style: theme.textTheme.displaySmall,
                   ),
                   if (progress.goal > Duration.zero)
@@ -60,10 +62,8 @@ class TrackedCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            LinearProgressIndicator(
-              value: progress.goalFraction.clamp(0, 1),
-              minHeight: 8,
-              borderRadius: BorderRadius.circular(4),
+            AnimatedProgressBar(
+              value: progress.goalFraction,
               backgroundColor: colors.primaryContainer,
             ),
           ],

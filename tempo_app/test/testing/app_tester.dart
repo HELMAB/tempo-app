@@ -26,8 +26,18 @@ void testApp(
   },
   DateTime Function()? clock,
   List<Override> overrides = const [],
+  // As if the OS "reduce motion" setting were on: no launch intro and no
+  // repeating animations, so pumpAndSettle can finish.
+  bool reduceMotion = true,
 }) {
   testWidgets(description, (tester) async {
+    if (reduceMotion) {
+      tester.platformDispatcher.accessibilityFeaturesTestValue =
+          const FakeAccessibilityFeatures(disableAnimations: true);
+      addTearDown(
+        tester.platformDispatcher.clearAccessibilityFeaturesTestValue,
+      );
+    }
     // Prototype frame: 390 × 844.
     tester.view
       ..physicalSize = const Size(1170, 2532)

@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -9,7 +10,9 @@ import '../../../core/formatters/date_format.dart';
 import '../../../core/formatters/duration_format.dart';
 import '../../../core/localization.dart';
 import '../../../core/themes/app_colors.dart';
+import '../../../core/themes/app_motion.dart';
 import '../../../core/widgets/clock_builder.dart';
+import '../../../core/widgets/motion.dart';
 import '../../../core/widgets/new_tag_dialog.dart';
 import '../../../core/widgets/progress_ring.dart';
 import '../../../core/widgets/project_chip.dart';
@@ -106,6 +109,7 @@ class _TimerContentState extends ConsumerState<_TimerContent> {
   }
 
   Future<void> _stopAndSave() async {
+    await HapticFeedback.mediumImpact();
     await _viewModel.stopAndSave(note: _note.text);
     if (mounted) _close(context);
   }
@@ -229,19 +233,29 @@ class _TimerContentState extends ConsumerState<_TimerContent> {
                 ),
               ),
               Expanded(
-                child: state.isPaused
-                    ? _RoundAction(
-                        label: l10n.timerResume,
-                        icon: Icons.play_arrow_rounded,
-                        style: _RoundActionStyle.tonal,
-                        onPressed: _viewModel.resume,
-                      )
-                    : _RoundAction(
-                        label: l10n.timerPause,
-                        icon: Icons.pause_rounded,
-                        style: _RoundActionStyle.tonal,
-                        onPressed: () => _viewModel.pause(note: _note.text),
-                      ),
+                child: ScaleSwitcher(
+                  child: state.isPaused
+                      ? _RoundAction(
+                          key: const ValueKey('resume'),
+                          label: l10n.timerResume,
+                          icon: Icons.play_arrow_rounded,
+                          style: _RoundActionStyle.tonal,
+                          onPressed: () {
+                            HapticFeedback.selectionClick();
+                            _viewModel.resume();
+                          },
+                        )
+                      : _RoundAction(
+                          key: const ValueKey('pause'),
+                          label: l10n.timerPause,
+                          icon: Icons.pause_rounded,
+                          style: _RoundActionStyle.tonal,
+                          onPressed: () {
+                            HapticFeedback.selectionClick();
+                            _viewModel.pause(note: _note.text);
+                          },
+                        ),
+                ),
               ),
             ],
           ),
@@ -307,19 +321,20 @@ class _Status extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        DecoratedBox(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: paused ? colors.outline : AppColors.projectPalette[2],
-          ),
-          child: const SizedBox.square(dimension: 10),
+        PulsingDot(
+          color: paused ? colors.outline : AppColors.projectPalette[2],
+          active: !paused,
         ),
-        const SizedBox(width: 8),
-        Text(
-          paused ? context.l10n.timerPaused : context.l10n.timerTracking,
-          style: theme.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w500,
-            color: colors.onSurfaceVariant,
+        const SizedBox(width: 2),
+        AnimatedSwitcher(
+          duration: AppMotion.of(context, AppMotion.medium),
+          child: Text(
+            paused ? context.l10n.timerPaused : context.l10n.timerTracking,
+            key: ValueKey(paused),
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w500,
+              color: colors.onSurfaceVariant,
+            ),
           ),
         ),
       ],
@@ -348,6 +363,9 @@ class _Clock extends StatelessWidget {
           child: ProgressRing(
             progress: state.focusFractionAt(now),
             strokeWidth: 14,
+            // Glide for the whole second between ticks: continuous motion.
+            duration: const Duration(seconds: 1),
+            curve: Curves.linear,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -432,6 +450,7 @@ enum _RoundActionStyle { primary, tonal, outlined }
 
 class _RoundAction extends StatelessWidget {
   const _RoundAction({
+    super.key,
     required this.label,
     required this.icon,
     required this.style,

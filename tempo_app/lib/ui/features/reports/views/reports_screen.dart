@@ -7,6 +7,7 @@ import '../../../core/formatters/duration_format.dart';
 import '../../../core/localization.dart';
 import '../../../core/themes/app_colors.dart';
 import '../../../core/widgets/clock_builder.dart';
+import '../../../core/widgets/motion.dart';
 import '../../../core/widgets/pill_segmented_control.dart';
 import '../view_models/reports_ui_state.dart';
 import '../view_models/reports_view_model.dart';
@@ -139,8 +140,9 @@ class _ReportsContent extends ConsumerWidget {
                     spacing: 12,
                     runSpacing: 8,
                     children: [
-                      Text(
-                        formatHoursMinutes(report.total, l10n),
+                      CountUpDuration(
+                        duration: report.total,
+                        format: (d) => formatHoursMinutes(d, l10n),
                         style: theme.textTheme.displaySmall,
                       ),
                       _ComparisonChip(

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../routing/routes.dart';
 import '../../../core/formatters/duration_format.dart';
 import '../../../core/localization.dart';
+import '../../../core/themes/app_motion.dart';
+import '../../../core/widgets/motion.dart';
 import '../../../core/widgets/project_chip.dart';
 import '../../../core/widgets/project_picker_sheet.dart';
 import '../view_models/today_ui_state.dart';
@@ -34,9 +37,15 @@ class _QuickStartCardState extends ConsumerState<QuickStartCard> {
   TodayViewModel get _viewModel => ref.read(todayViewModelProvider.notifier);
 
   Future<void> _start() async {
+    await HapticFeedback.mediumImpact();
     await _viewModel.startTimer(description: _description.text);
     _description.clear();
     if (mounted) await context.push(Routes.timer);
+  }
+
+  Future<void> _stop() async {
+    await HapticFeedback.lightImpact();
+    await _viewModel.stopTimer();
   }
 
   Future<void> _pickProject() async {
@@ -63,61 +72,67 @@ class _QuickStartCardState extends ConsumerState<QuickStartCard> {
           child: Row(
             children: [
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (running == null)
-                      TextField(
-                        controller: _description,
-                        textInputAction: TextInputAction.go,
-                        onSubmitted: (_) => _start(),
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                        decoration: InputDecoration(
-                          hintText: l10n.quickStartHint,
-                          isCollapsed: true,
-                          filled: false,
-                          border: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                        ),
-                      )
-                    else
-                      Text(
-                        running.entry.description.isEmpty
-                            ? l10n.noDescription
-                            : running.entry.description,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.titleMedium,
-                      ),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Flexible(
-                          child: ProjectChip(
-                            project: running == null
-                                ? widget.state.quickStartProject
-                                : running.project,
-                            onPressed: running == null ? _pickProject : null,
+                // Grows / shrinks smoothly between idle and running.
+                child: AnimatedSize(
+                  duration: AppMotion.of(context, AppMotion.medium),
+                  curve: AppMotion.move,
+                  alignment: Alignment.topLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (running == null)
+                        TextField(
+                          controller: _description,
+                          textInputAction: TextInputAction.go,
+                          onSubmitted: (_) => _start(),
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w500,
                           ),
+                          decoration: InputDecoration(
+                            hintText: l10n.quickStartHint,
+                            isCollapsed: true,
+                            filled: false,
+                            border: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                          ),
+                        )
+                      else
+                        Text(
+                          running.entry.description.isEmpty
+                              ? l10n.noDescription
+                              : running.entry.description,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.titleMedium,
                         ),
-                        if (running != null) ...[
-                          const SizedBox(width: 12),
-                          Text(
-                            formatClock(running.entry.durationAt(widget.now)),
-                            style: theme.textTheme.bodyLarge?.copyWith(
-                              fontWeight: FontWeight.w700,
-                              fontFeatures: const [
-                                FontFeature.tabularFigures(),
-                              ],
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Flexible(
+                            child: ProjectChip(
+                              project: running == null
+                                  ? widget.state.quickStartProject
+                                  : running.project,
+                              onPressed: running == null ? _pickProject : null,
                             ),
                           ),
+                          if (running != null) ...[
+                            const SizedBox(width: 12),
+                            Text(
+                              formatClock(running.entry.durationAt(widget.now)),
+                              style: theme.textTheme.bodyLarge?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                fontFeatures: const [
+                                  FontFeature.tabularFigures(),
+                                ],
+                              ),
+                            ),
+                          ],
                         ],
-                      ],
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(width: 12),
@@ -125,11 +140,14 @@ class _QuickStartCardState extends ConsumerState<QuickStartCard> {
                 iconSize: 32,
                 style: IconButton.styleFrom(minimumSize: const Size.square(64)),
                 tooltip: running == null ? l10n.startTimer : l10n.stopTimer,
-                onPressed: running == null ? _start : _viewModel.stopTimer,
-                icon: Icon(
-                  running == null
-                      ? Icons.play_arrow_rounded
-                      : Icons.stop_rounded,
+                onPressed: running == null ? _start : _stop,
+                icon: ScaleSwitcher(
+                  child: Icon(
+                    running == null
+                        ? Icons.play_arrow_rounded
+                        : Icons.stop_rounded,
+                    key: ValueKey(running == null),
+                  ),
                 ),
               ),
             ],

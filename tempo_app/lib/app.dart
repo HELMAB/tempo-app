@@ -6,6 +6,7 @@ import 'domain/models/app_settings.dart';
 import 'l10n/app_localizations.dart';
 import 'routing/router.dart';
 import 'ui/core/themes/app_theme.dart';
+import 'ui/core/widgets/launch_overlay.dart';
 import 'ui/features/idle/views/idle_watcher.dart';
 
 class TempoApp extends ConsumerWidget {
@@ -42,7 +43,8 @@ class TempoApp extends ConsumerWidget {
         ThemePreference.system => ThemeMode.system,
       },
       routerConfig: router,
-      builder: (context, child) => IdleWatcher(child: child!),
+      builder: (context, child) =>
+          LaunchOverlay(child: IdleWatcher(child: child!)),
     );
   }
 }

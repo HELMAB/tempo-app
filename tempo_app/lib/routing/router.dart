@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../config/dependencies.dart';
 import '../ui/core/widgets/app_shell.dart';
+import '../ui/core/widgets/fade_through_branches.dart';
 import '../ui/core/widgets/modal_bottom_sheet_page.dart';
 import '../ui/features/entry_editor/views/entry_editor_screen.dart';
 import '../ui/features/onboarding/views/onboarding_screen.dart';
@@ -34,8 +35,13 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: Routes.onboarding,
         builder: (context, state) => const OnboardingScreen(),
       ),
-      StatefulShellRoute.indexedStack(
+      StatefulShellRoute(
         builder: (context, state, shell) => AppShell(navigationShell: shell),
+        navigatorContainerBuilder: (context, shell, children) =>
+            FadeThroughBranches(
+              currentIndex: shell.currentIndex,
+              children: children,
+            ),
         branches: [
           StatefulShellBranch(
             routes: [

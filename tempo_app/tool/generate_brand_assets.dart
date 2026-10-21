@@ -22,14 +22,17 @@ const _assets = <String, (int, TempoLogoShape)>{
   'web/icons/Icon-512.png': (512, TempoLogoShape.rounded),
   'web/icons/Icon-maskable-192.png': (192, TempoLogoShape.fullBleed),
   'web/icons/Icon-maskable-512.png': (512, TempoLogoShape.fullBleed),
-  // Splash logo: 96 dp at xxxhdpi (4x), as flutter_native_splash expects.
-  'branding/splash_logo.png': (384, TempoLogoShape.rounded),
 };
 
-/// Android 12+ splash icon with a background colour: 960×960 px, of which
-/// only the central 640 px circle shows (the OS paints it brand blue).
-const _android12Canvas = 960;
-const _android12Glyph = 360;
+/// Splash glyph: white stopwatch on the blue splash background. Images are
+/// read as xxxhdpi (4x), so 384 px of glyph is 96 dp, the same size the
+/// in-app LaunchOverlay draws, so the hand-over is seamless.
+const _splashGlyph = 384;
+const _splashCanvas = 480;
+
+/// Android 12+ splash icon without an icon background: 1152×1152 px, of
+/// which the central 768 px circle shows.
+const _android12Canvas = 1152;
 
 void main() {
   setUpAll(() async {
@@ -47,15 +50,20 @@ void main() {
         child: TempoLogo(size: size.toDouble(), shape: shape),
       );
     }
-    await _render(
-      tester,
-      'branding/splash_android12.png',
-      canvas: _android12Canvas,
-      child: const TempoLogo(
-        size: _android12Glyph * 1.0,
-        shape: TempoLogoShape.glyph,
-      ),
-    );
+    for (final (path, canvas) in [
+      ('branding/splash_logo.png', _splashCanvas),
+      ('branding/splash_android12.png', _android12Canvas),
+    ]) {
+      await _render(
+        tester,
+        path,
+        canvas: canvas,
+        child: const TempoLogo(
+          size: _splashGlyph * 1.0,
+          shape: TempoLogoShape.glyph,
+        ),
+      );
+    }
   });
 }
 

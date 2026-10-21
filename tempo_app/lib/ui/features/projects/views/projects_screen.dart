@@ -7,6 +7,7 @@ import '../../../../routing/routes.dart';
 import '../../../core/formatters/duration_format.dart';
 import '../../../core/localization.dart';
 import '../../../core/widgets/clock_builder.dart';
+import '../../../core/widgets/motion.dart';
 import '../../../core/widgets/pill_segmented_control.dart';
 import '../../../core/widgets/project_chip.dart';
 import '../view_models/projects_ui_state.dart';
@@ -104,8 +105,16 @@ class _ProjectsContentState extends ConsumerState<_ProjectsContent> {
               ),
             ),
           ),
-        for (final project in state.active) ...[
-          _ProjectCard(project: project, state: state, now: widget.now),
+        for (final (index, project) in state.active.indexed) ...[
+          FadeSlideIn(
+            key: ValueKey(project.id),
+            index: index,
+            child: _ProjectCard(
+              project: project,
+              state: state,
+              now: widget.now,
+            ),
+          ),
           const SizedBox(height: 12),
         ],
         if (state.archived.isNotEmpty) ...[
@@ -227,12 +236,11 @@ class _ProjectCard extends StatelessWidget {
               ),
               if (withGoal) ...[
                 const SizedBox(height: 16),
-                LinearProgressIndicator(
-                  value: fraction.clamp(0, 1),
+                AnimatedProgressBar(
+                  value: fraction,
                   minHeight: 6,
                   color: color,
                   backgroundColor: colors.outlineVariant.withValues(alpha: 0.6),
-                  borderRadius: BorderRadius.circular(3),
                 ),
               ],
             ],

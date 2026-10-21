@@ -6,6 +6,7 @@ import '../../../../routing/routes.dart';
 import '../../../core/formatters/duration_format.dart';
 import '../../../core/localization.dart';
 import '../../../core/themes/app_colors.dart';
+import '../../../core/themes/app_motion.dart';
 import '../../../core/widgets/goal_stepper.dart';
 import '../view_models/project_editor_view_model.dart';
 
@@ -236,24 +237,35 @@ class _Swatch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final duration = AppMotion.of(context, AppMotion.medium);
+
     return Semantics(
       button: true,
       selected: selected,
       label: label,
       child: GestureDetector(
         onTap: onTap,
-        child: DecoratedBox(
+        // The ring draws in and the swatch shrinks inside it; the check pops.
+        child: AnimatedContainer(
+          duration: duration,
+          curve: AppMotion.move,
+          padding: EdgeInsets.all(selected ? 3 : 0),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: selected ? Border.all(color: colour, width: 2.5) : null,
+            border: Border.all(
+              color: selected ? colour : colour.withValues(alpha: 0),
+              width: 2.5,
+            ),
           ),
-          child: Padding(
-            padding: EdgeInsets.all(selected ? 3 : 0),
-            child: DecoratedBox(
-              decoration: BoxDecoration(color: colour, shape: BoxShape.circle),
-              child: selected
-                  ? const Center(child: Icon(Icons.check, color: Colors.white))
-                  : const SizedBox.expand(),
+          child: DecoratedBox(
+            decoration: BoxDecoration(color: colour, shape: BoxShape.circle),
+            child: Center(
+              child: AnimatedScale(
+                scale: selected ? 1 : 0,
+                duration: duration,
+                curve: Curves.easeOutBack,
+                child: const Icon(Icons.check, color: Colors.white),
+              ),
             ),
           ),
         ),
