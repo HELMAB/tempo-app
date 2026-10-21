@@ -349,4 +349,224 @@ class AppLocalizationsKm extends AppLocalizations {
   String projectColourLabel(int number) {
     return 'ពណ៌ទី $number';
   }
+
+  @override
+  String get reportsLoadError => 'មិនអាចផ្ទុករបាយការណ៍បានទេ។';
+
+  @override
+  String get reportsDay => 'ថ្ងៃ';
+
+  @override
+  String get reportsWeek => 'សប្ដាហ៍';
+
+  @override
+  String get reportsMonth => 'ខែ';
+
+  @override
+  String get reportsExport => 'នាំចេញ CSV';
+
+  @override
+  String get reportsPrevious => 'មុន';
+
+  @override
+  String get reportsNext => 'បន្ទាប់';
+
+  @override
+  String get reportsTotalToday => 'សរុបថ្ងៃនេះ';
+
+  @override
+  String get reportsTotalThisWeek => 'សរុបសប្ដាហ៍នេះ';
+
+  @override
+  String get reportsTotalThisMonth => 'សរុបខែនេះ';
+
+  @override
+  String get reportsTotal => 'សរុប';
+
+  @override
+  String get reportsByProject => 'តាមគម្រោង';
+
+  @override
+  String get reportsEmpty => 'មិនមានការតាមដានក្នុងរយៈពេលនេះទេ។';
+
+  @override
+  String get exportFailed => 'មិនអាចនាំចេញបានទេ សូមព្យាយាមម្ដងទៀត។';
+
+  @override
+  String get settingsTracking => 'ការតាមដាន';
+
+  @override
+  String get settingsDailyGoal => 'គោលដៅប្រចាំថ្ងៃ';
+
+  @override
+  String get settingsWeekStartsOn => 'សប្ដាហ៍ចាប់ផ្ដើមនៅ';
+
+  @override
+  String get settingsIdleDetection => 'ការរកឃើញពេលទំនេរ';
+
+  @override
+  String get settingsReminders => 'ការរំលឹក';
+
+  @override
+  String get settingsRemindToStart => 'រំលឹកខ្ញុំឱ្យចាប់ផ្ដើម';
+
+  @override
+  String get settingsRunningTimerNotification => 'ការជូនដំណឹងពេលកំណត់ម៉ោង';
+
+  @override
+  String get settingsRunningTimerNotificationBody =>
+      'បង្ហាញការកំណត់ម៉ោងលើអេក្រង់ចាក់សោ';
+
+  @override
+  String get settingsNotificationsUnavailable => 'មិនមាននៅលើឧបករណ៍នេះទេ';
+
+  @override
+  String get settingsAppearance => 'រូបរាង';
+
+  @override
+  String get settingsTheme => 'ផ្ទៃពណ៌';
+
+  @override
+  String get themeSystem => 'តាមប្រព័ន្ធ';
+
+  @override
+  String get themeLight => 'ភ្លឺ';
+
+  @override
+  String get themeDark => 'ងងឹត';
+
+  @override
+  String get settingsData => 'ទិន្នន័យ';
+
+  @override
+  String get settingsExportCsv => 'នាំចេញជា CSV';
+
+  @override
+  String get settingsBackup => 'បម្រុងទុក និងស្ដារ';
+
+  @override
+  String get backupCreate => 'បង្កើតការបម្រុងទុក';
+
+  @override
+  String get backupCreateBody =>
+      'រក្សាទុកគម្រោង និងកំណត់ត្រាទាំងអស់ទៅក្នុងឯកសារ។';
+
+  @override
+  String get backupRestore => 'ស្ដារពីការបម្រុងទុក';
+
+  @override
+  String get backupRestoreBody => 'ជំនួសទិន្នន័យទាំងអស់ដោយឯកសារបម្រុងទុក។';
+
+  @override
+  String get backupFileType => 'ឯកសារបម្រុងទុក Tempo';
+
+  @override
+  String get restoreConfirmTitle => 'ជំនួសទិន្នន័យទាំងអស់?';
+
+  @override
+  String get restoreConfirmBody =>
+      'គម្រោង និងកំណត់ត្រានៅលើឧបករណ៍នេះនឹងត្រូវបានជំនួសដោយការបម្រុងទុក។';
+
+  @override
+  String get restoreConfirm => 'ជំនួស';
+
+  @override
+  String get restoreInvalid => 'ឯកសារនោះមិនមែនជាការបម្រុងទុក Tempo ទេ។';
+
+  @override
+  String get notificationsDenied =>
+      'ការជូនដំណឹងត្រូវបានបិទសម្រាប់ Tempo ក្នុងការកំណត់ប្រព័ន្ធ។';
+
+  @override
+  String get decrease => 'បន្ថយ';
+
+  @override
+  String get increase => 'បង្កើន';
+
+  @override
+  String get idleBody =>
+      'ការកំណត់ម៉ោងរបស់អ្នកនៅតែដំណើរការពេលអ្នកមិននៅ។ រក្សាពេលនោះទុកទេ?';
+
+  @override
+  String get idleKeep => 'រក្សាទុក';
+
+  @override
+  String get reminderTitle => 'ដល់ពេលចាប់ផ្ដើមតាមដានហើយ';
+
+  @override
+  String get reminderBody => 'ចាប់ផ្ដើមកំណត់ម៉ោងសម្រាប់ការងារដែលអ្នកកំពុងធ្វើ។';
+
+  @override
+  String get reminderChannel => 'ការរំលឹក';
+
+  @override
+  String get runningTimerChannel => 'ការកំណត់ម៉ោងកំពុងដំណើរការ';
+
+  @override
+  String get runningTimerFallbackTitle => 'កំពុងកំណត់ម៉ោង';
+
+  @override
+  String reportsVsLast(String diff, String period) {
+    String _temp0 = intl.Intl.selectLogic(period, {
+      'day': 'ម្សិលមិញ',
+      'week': 'សប្ដាហ៍មុន',
+      'other': 'ខែមុន',
+    });
+    return '$diff ធៀបនឹង$_temp0';
+  }
+
+  @override
+  String reportsVsPrevious(String diff, String period) {
+    String _temp0 = intl.Intl.selectLogic(period, {
+      'day': 'ថ្ងៃមុន',
+      'week': 'សប្ដាហ៍មុន',
+      'other': 'ខែមុន',
+    });
+    return '$diff ធៀបនឹង$_temp0';
+  }
+
+  @override
+  String reportsAverage(String duration) {
+    return 'មធ្យម $duration';
+  }
+
+  @override
+  String durationCompact(int hours, String minutes) {
+    return '$hours:$minutes';
+  }
+
+  @override
+  String settingsIdleDetectionBody(int minutes) {
+    return 'សួរពេលខ្ញុំត្រឡប់មកវិញក្រោយចាកចេញ $minutes នាទី';
+  }
+
+  @override
+  String settingsRemindToStartBody(String time) {
+    return 'ថ្ងៃធ្វើការ ម៉ោង $time';
+  }
+
+  @override
+  String settingsVersion(String version) {
+    return 'Tempo $version';
+  }
+
+  @override
+  String restoreDone(int projects, int entries) {
+    return 'បានស្ដារ $projects គម្រោង និង $entries កំណត់ត្រា។';
+  }
+
+  @override
+  String idleTitle(String duration) {
+    return 'អ្នកបានចាកចេញ $duration';
+  }
+
+  @override
+  String idleStopAt(String time) {
+    return 'បញ្ឈប់នៅ $time';
+  }
+
+  @override
+  String runningTimerBody(String time) {
+    return 'បានចាប់ផ្ដើមនៅ $time';
+  }
 }

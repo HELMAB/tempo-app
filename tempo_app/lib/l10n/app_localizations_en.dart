@@ -348,4 +348,223 @@ class AppLocalizationsEn extends AppLocalizations {
   String projectColourLabel(int number) {
     return 'Colour $number';
   }
+
+  @override
+  String get reportsLoadError => 'Could not load reports.';
+
+  @override
+  String get reportsDay => 'Day';
+
+  @override
+  String get reportsWeek => 'Week';
+
+  @override
+  String get reportsMonth => 'Month';
+
+  @override
+  String get reportsExport => 'Export CSV';
+
+  @override
+  String get reportsPrevious => 'Previous';
+
+  @override
+  String get reportsNext => 'Next';
+
+  @override
+  String get reportsTotalToday => 'Total today';
+
+  @override
+  String get reportsTotalThisWeek => 'Total this week';
+
+  @override
+  String get reportsTotalThisMonth => 'Total this month';
+
+  @override
+  String get reportsTotal => 'Total';
+
+  @override
+  String get reportsByProject => 'By project';
+
+  @override
+  String get reportsEmpty => 'Nothing tracked in this period.';
+
+  @override
+  String get exportFailed => 'Could not export, please try again.';
+
+  @override
+  String get settingsTracking => 'Tracking';
+
+  @override
+  String get settingsDailyGoal => 'Daily goal';
+
+  @override
+  String get settingsWeekStartsOn => 'Week starts on';
+
+  @override
+  String get settingsIdleDetection => 'Idle detection';
+
+  @override
+  String get settingsReminders => 'Reminders';
+
+  @override
+  String get settingsRemindToStart => 'Remind me to start';
+
+  @override
+  String get settingsRunningTimerNotification => 'Running timer notification';
+
+  @override
+  String get settingsRunningTimerNotificationBody =>
+      'Shows the running timer on the lock screen';
+
+  @override
+  String get settingsNotificationsUnavailable => 'Not available on this device';
+
+  @override
+  String get settingsAppearance => 'Appearance';
+
+  @override
+  String get settingsTheme => 'Theme';
+
+  @override
+  String get themeSystem => 'System';
+
+  @override
+  String get themeLight => 'Light';
+
+  @override
+  String get themeDark => 'Dark';
+
+  @override
+  String get settingsData => 'Data';
+
+  @override
+  String get settingsExportCsv => 'Export as CSV';
+
+  @override
+  String get settingsBackup => 'Backup & restore';
+
+  @override
+  String get backupCreate => 'Create backup';
+
+  @override
+  String get backupCreateBody => 'Save all projects and entries to a file.';
+
+  @override
+  String get backupRestore => 'Restore from a backup';
+
+  @override
+  String get backupRestoreBody => 'Replace everything with a backup file.';
+
+  @override
+  String get backupFileType => 'Tempo backup';
+
+  @override
+  String get restoreConfirmTitle => 'Replace all data?';
+
+  @override
+  String get restoreConfirmBody =>
+      'Projects and entries on this device will be replaced by the backup.';
+
+  @override
+  String get restoreConfirm => 'Replace';
+
+  @override
+  String get restoreInvalid => 'That file is not a Tempo backup.';
+
+  @override
+  String get notificationsDenied =>
+      'Notifications are turned off for Tempo in system settings.';
+
+  @override
+  String get decrease => 'Decrease';
+
+  @override
+  String get increase => 'Increase';
+
+  @override
+  String get idleBody =>
+      'Your timer kept running while you were away. Keep that time?';
+
+  @override
+  String get idleKeep => 'Keep it';
+
+  @override
+  String get reminderTitle => 'Time to start tracking';
+
+  @override
+  String get reminderBody => 'Start a timer for what you\'re working on.';
+
+  @override
+  String get reminderChannel => 'Reminders';
+
+  @override
+  String get runningTimerChannel => 'Running timer';
+
+  @override
+  String get runningTimerFallbackTitle => 'Timer running';
+
+  @override
+  String reportsVsLast(String diff, String period) {
+    String _temp0 = intl.Intl.selectLogic(period, {
+      'day': 'yesterday',
+      'week': 'last week',
+      'other': 'last month',
+    });
+    return '$diff vs $_temp0';
+  }
+
+  @override
+  String reportsVsPrevious(String diff, String period) {
+    String _temp0 = intl.Intl.selectLogic(period, {
+      'day': 'the day before',
+      'week': 'the week before',
+      'other': 'the month before',
+    });
+    return '$diff vs $_temp0';
+  }
+
+  @override
+  String reportsAverage(String duration) {
+    return 'avg $duration';
+  }
+
+  @override
+  String durationCompact(int hours, String minutes) {
+    return '${hours}h$minutes';
+  }
+
+  @override
+  String settingsIdleDetectionBody(int minutes) {
+    return 'Ask when I\'m back after $minutes min away';
+  }
+
+  @override
+  String settingsRemindToStartBody(String time) {
+    return 'Weekdays at $time';
+  }
+
+  @override
+  String settingsVersion(String version) {
+    return 'Tempo $version';
+  }
+
+  @override
+  String restoreDone(int projects, int entries) {
+    return 'Restored $projects projects and $entries entries.';
+  }
+
+  @override
+  String idleTitle(String duration) {
+    return 'You were away for $duration';
+  }
+
+  @override
+  String idleStopAt(String time) {
+    return 'Stop at $time';
+  }
+
+  @override
+  String runningTimerBody(String time) {
+    return 'Started at $time';
+  }
 }

@@ -58,6 +58,8 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('ខ្មែរ'), findsOneWidget);
 
+      await tester.ensureVisible(find.text(km.settingsLanguage));
+      await tester.pumpAndSettle();
       await tester.tap(find.text(km.settingsLanguage));
       await tester.pumpAndSettle();
       await tester.tap(find.text('English'));

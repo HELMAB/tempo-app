@@ -22,6 +22,12 @@ class ProjectRepository {
     return query.watch().map((rows) => rows.map(_toDomain).toList());
   }
 
+  Future<List<Project>> getAllProjects() async {
+    final query = _db.select(_db.projects)
+      ..orderBy([(p) => OrderingTerm.asc(p.createdAt)]);
+    return (await query.get()).map(_toDomain).toList();
+  }
+
   Future<Project?> getProject(int id) async {
     final row = await (_db.select(
       _db.projects,

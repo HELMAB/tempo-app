@@ -30,6 +30,18 @@ class TimeEntryRepository {
     ).watch().map((rows) => _groupWithTags(rows).firstOrNull);
   }
 
+  /// Entries started in `[from, to)` (open bounds when null), oldest first.
+  Future<List<TimeEntry>> getEntries({DateTime? from, DateTime? to}) async {
+    Expression<bool> where = const Constant(true);
+    if (from != null) {
+      where = where & _db.timeEntries.startAt.isBiggerOrEqualValue(from);
+    }
+    if (to != null) {
+      where = where & _db.timeEntries.startAt.isSmallerThanValue(to);
+    }
+    return _groupWithTags(await _entriesQuery(where: where).get());
+  }
+
   Future<TimeEntry?> getEntry(int id) async {
     final rows = await _entriesQuery(
       where: _db.timeEntries.id.equals(id),
@@ -102,7 +114,9 @@ class TimeEntryRepository {
     });
   }
 
-  Future<void> stopTimer() => _stopRunning(_clock());
+  /// Stops the running timer now, or at [at] (e.g. when idle time is
+  /// discarded).
+  Future<void> stopTimer({DateTime? at}) => _stopRunning(at ?? _clock());
 
   /// Creates a finished entry, e.g. from "Add manually".
   Future<int> addEntry({

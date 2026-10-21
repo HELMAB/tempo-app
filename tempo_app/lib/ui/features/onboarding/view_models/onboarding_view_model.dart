@@ -20,4 +20,16 @@ class OnboardingViewModel extends Notifier<AsyncValue<void>> {
           .update((settings) => settings.copyWith(onboardingComplete: true)),
     );
   }
+
+  /// Restores a backup, then finishes onboarding. False when the user
+  /// cancels the file picker; throws [FormatException] for a file that
+  /// isn't a Tempo backup.
+  Future<bool> restoreFromBackup({required String fileTypeLabel}) async {
+    final backups = ref.read(backupRepositoryProvider);
+    final backup = await backups.pickBackup(fileTypeLabel: fileTypeLabel);
+    if (backup == null) return false;
+    await backups.restore(backup);
+    await getStarted();
+    return true;
+  }
 }

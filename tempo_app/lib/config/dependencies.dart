@@ -1,10 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/repositories/backup_repository.dart';
+import '../data/repositories/notification_repository.dart';
 import '../data/repositories/project_repository.dart';
 import '../data/repositories/settings_repository.dart';
 import '../data/repositories/time_entry_repository.dart';
 import '../data/services/database/app_database.dart';
+import '../data/services/file_service.dart';
+import '../data/services/notification_service.dart';
 import '../domain/models/app_settings.dart';
 import '../domain/models/project.dart';
 import '../domain/models/time_entry.dart';
@@ -28,7 +33,33 @@ final appDatabaseProvider = Provider<AppDatabase>((ref) {
   return database;
 });
 
+final fileServiceProvider = Provider<FileService>((ref) => FileService());
+
+final notificationServiceProvider = Provider<NotificationService>(
+  (ref) => NotificationService(),
+);
+
+/// App version for the Settings footer.
+final appVersionProvider = FutureProvider<String>(
+  (ref) async => (await PackageInfo.fromPlatform()).version,
+);
+
 // --- Repositories -----------------------------------------------------------
+
+final backupRepositoryProvider = Provider<BackupRepository>(
+  (ref) => BackupRepository(
+    database: ref.watch(appDatabaseProvider),
+    projects: ref.watch(projectRepositoryProvider),
+    entries: ref.watch(timeEntryRepositoryProvider),
+    files: ref.watch(fileServiceProvider),
+    clock: ref.watch(clockProvider),
+  ),
+);
+
+final notificationRepositoryProvider = Provider<NotificationRepository>(
+  (ref) =>
+      NotificationRepository(service: ref.watch(notificationServiceProvider)),
+);
 
 final settingsRepositoryProvider = Provider<SettingsRepository>((ref) {
   final repository = SettingsRepository(
@@ -89,3 +120,36 @@ final finishedTotalsByProjectProvider = StreamProvider.autoDispose
           .watch(timeEntryRepositoryProvider)
           .watchFinishedTotalsByProject(from: range.from, to: range.to),
     );
+
+/// Entries started in `[from, to)`, oldest first.
+final entriesBetweenProvider = StreamProvider.autoDispose
+    .family<List<TimeEntry>, ({DateTime from, DateTime to})>(
+      (ref, range) => ref
+          .watch(timeEntryRepositoryProvider)
+          .watchEntries(from: range.from, to: range.to),
+    );
+
+/// Keeps the weekday reminder in step with its settings and the language.
+/// Listened to by the app root.
+final reminderSyncProvider = FutureProvider<void>((ref) async {
+  // Only re-schedule when a field the reminder depends on changes.
+  await ref.watch(
+    appSettingsProvider.selectAsync(
+      (s) => (s.remindToStart, s.reminderMinuteOfDay, s.language),
+    ),
+  );
+  await ref
+      .read(notificationRepositoryProvider)
+      .syncReminder(ref.read(settingsRepositoryProvider).current);
+});
+
+/// Shows or clears the ongoing "timer running" notification.
+final runningTimerNotificationSyncProvider = FutureProvider<void>((ref) async {
+  final (settings, running) = await (
+    ref.watch(appSettingsProvider.future),
+    ref.watch(runningEntryProvider.future),
+  ).wait;
+  await ref
+      .read(notificationRepositoryProvider)
+      .syncRunningTimer(settings, running);
+});

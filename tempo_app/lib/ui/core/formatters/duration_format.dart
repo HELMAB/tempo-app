@@ -14,6 +14,18 @@ String formatGoal(Duration duration, AppLocalizations l10n) =>
     ? l10n.durationHours(duration.inHours)
     : formatHoursMinutes(duration, l10n);
 
+/// `4h30`, `0h48` — labels above chart bars.
+String formatCompact(Duration duration, AppLocalizations l10n) =>
+    l10n.durationCompact(
+      duration.inHours,
+      duration.inMinutes.remainder(60).toString().padLeft(2, '0'),
+    );
+
+/// `+3h 20m` / `−1h 05m` — change against another period.
+String formatSignedHoursMinutes(Duration duration, AppLocalizations l10n) =>
+    '${duration.isNegative ? '\u2212' : '+'}'
+    '${formatHoursMinutes(duration.abs(), l10n)}';
+
 /// `1:12:48`, `0:30:00` — running timer and entry rows. Same in every
 /// language.
 String formatClock(Duration duration) {

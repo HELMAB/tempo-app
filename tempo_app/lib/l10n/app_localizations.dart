@@ -709,6 +709,372 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Colour {number}'**
   String projectColourLabel(int number);
+
+  /// Error shown when Reports fails to load.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load reports.'**
+  String get reportsLoadError;
+
+  /// Reports period segment.
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get reportsDay;
+
+  /// Reports period segment.
+  ///
+  /// In en, this message translates to:
+  /// **'Week'**
+  String get reportsWeek;
+
+  /// Reports period segment.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get reportsMonth;
+
+  /// Tooltip of the Reports export button.
+  ///
+  /// In en, this message translates to:
+  /// **'Export CSV'**
+  String get reportsExport;
+
+  /// Tooltip: go to the previous period.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get reportsPrevious;
+
+  /// Tooltip: go to the next period.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get reportsNext;
+
+  /// Total label when viewing today.
+  ///
+  /// In en, this message translates to:
+  /// **'Total today'**
+  String get reportsTotalToday;
+
+  /// Total label when viewing this week.
+  ///
+  /// In en, this message translates to:
+  /// **'Total this week'**
+  String get reportsTotalThisWeek;
+
+  /// Total label when viewing this month.
+  ///
+  /// In en, this message translates to:
+  /// **'Total this month'**
+  String get reportsTotalThisMonth;
+
+  /// Total label when viewing a past period.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get reportsTotal;
+
+  /// Title of the per-project breakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'By project'**
+  String get reportsByProject;
+
+  /// Shown when the period has no time.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing tracked in this period.'**
+  String get reportsEmpty;
+
+  /// Snackbar when an export fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not export, please try again.'**
+  String get exportFailed;
+
+  /// Settings section title.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracking'**
+  String get settingsTracking;
+
+  /// Settings row and sheet title.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily goal'**
+  String get settingsDailyGoal;
+
+  /// Settings row and sheet title.
+  ///
+  /// In en, this message translates to:
+  /// **'Week starts on'**
+  String get settingsWeekStartsOn;
+
+  /// Settings switch title.
+  ///
+  /// In en, this message translates to:
+  /// **'Idle detection'**
+  String get settingsIdleDetection;
+
+  /// Settings section title.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders'**
+  String get settingsReminders;
+
+  /// Settings switch title.
+  ///
+  /// In en, this message translates to:
+  /// **'Remind me to start'**
+  String get settingsRemindToStart;
+
+  /// Settings switch title.
+  ///
+  /// In en, this message translates to:
+  /// **'Running timer notification'**
+  String get settingsRunningTimerNotification;
+
+  /// Settings switch subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Shows the running timer on the lock screen'**
+  String get settingsRunningTimerNotificationBody;
+
+  /// Subtitle when the platform can't show notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available on this device'**
+  String get settingsNotificationsUnavailable;
+
+  /// Settings section title.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get settingsAppearance;
+
+  /// Settings row and sheet title.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get settingsTheme;
+
+  /// Theme option: follow the device.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get themeSystem;
+
+  /// Theme option.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get themeLight;
+
+  /// Theme option.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get themeDark;
+
+  /// Settings section title.
+  ///
+  /// In en, this message translates to:
+  /// **'Data'**
+  String get settingsData;
+
+  /// Settings row: export all entries.
+  ///
+  /// In en, this message translates to:
+  /// **'Export as CSV'**
+  String get settingsExportCsv;
+
+  /// Settings row and sheet title.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup & restore'**
+  String get settingsBackup;
+
+  /// Backup sheet action.
+  ///
+  /// In en, this message translates to:
+  /// **'Create backup'**
+  String get backupCreate;
+
+  /// Backup sheet action description.
+  ///
+  /// In en, this message translates to:
+  /// **'Save all projects and entries to a file.'**
+  String get backupCreateBody;
+
+  /// Backup sheet and onboarding action.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore from a backup'**
+  String get backupRestore;
+
+  /// Backup sheet action description.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace everything with a backup file.'**
+  String get backupRestoreBody;
+
+  /// File type label in the file picker.
+  ///
+  /// In en, this message translates to:
+  /// **'Tempo backup'**
+  String get backupFileType;
+
+  /// Title of the restore confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace all data?'**
+  String get restoreConfirmTitle;
+
+  /// Body of the restore confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Projects and entries on this device will be replaced by the backup.'**
+  String get restoreConfirmBody;
+
+  /// Confirms the restore.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace'**
+  String get restoreConfirm;
+
+  /// Shown when the picked file can't be read.
+  ///
+  /// In en, this message translates to:
+  /// **'That file is not a Tempo backup.'**
+  String get restoreInvalid;
+
+  /// Shown when notification permission is refused.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are turned off for Tempo in system settings.'**
+  String get notificationsDenied;
+
+  /// Tooltip of a minus button.
+  ///
+  /// In en, this message translates to:
+  /// **'Decrease'**
+  String get decrease;
+
+  /// Tooltip of a plus button.
+  ///
+  /// In en, this message translates to:
+  /// **'Increase'**
+  String get increase;
+
+  /// Body of the idle dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Your timer kept running while you were away. Keep that time?'**
+  String get idleBody;
+
+  /// Keeps the time tracked while away.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep it'**
+  String get idleKeep;
+
+  /// Weekday reminder title.
+  ///
+  /// In en, this message translates to:
+  /// **'Time to start tracking'**
+  String get reminderTitle;
+
+  /// Weekday reminder body.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a timer for what you\'re working on.'**
+  String get reminderBody;
+
+  /// Android notification channel name for reminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders'**
+  String get reminderChannel;
+
+  /// Android notification channel name for the running timer.
+  ///
+  /// In en, this message translates to:
+  /// **'Running timer'**
+  String get runningTimerChannel;
+
+  /// Running timer notification title when the entry has no description.
+  ///
+  /// In en, this message translates to:
+  /// **'Timer running'**
+  String get runningTimerFallbackTitle;
+
+  /// Change against the previous period, e.g. +3h 20m vs last week.
+  ///
+  /// In en, this message translates to:
+  /// **'{diff} vs {period, select, day{yesterday} week{last week} other{last month}}'**
+  String reportsVsLast(String diff, String period);
+
+  /// Change against the period before a past period.
+  ///
+  /// In en, this message translates to:
+  /// **'{diff} vs {period, select, day{the day before} week{the week before} other{the month before}}'**
+  String reportsVsPrevious(String diff, String period);
+
+  /// Label of the average line on the chart, e.g. avg 4h.
+  ///
+  /// In en, this message translates to:
+  /// **'avg {duration}'**
+  String reportsAverage(String duration);
+
+  /// Short duration above chart bars, e.g. 4h30. Minutes are zero-padded.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours}h{minutes}'**
+  String durationCompact(int hours, String minutes);
+
+  /// Idle detection subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask when I\'m back after {minutes} min away'**
+  String settingsIdleDetectionBody(int minutes);
+
+  /// Reminder subtitle, e.g. Weekdays at 09:00.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekdays at {time}'**
+  String settingsRemindToStartBody(String time);
+
+  /// App version at the bottom of Settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Tempo {version}'**
+  String settingsVersion(String version);
+
+  /// Shown after a restore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restored {projects} projects and {entries} entries.'**
+  String restoreDone(int projects, int entries);
+
+  /// Title of the idle dialog, e.g. You were away for 25m.
+  ///
+  /// In en, this message translates to:
+  /// **'You were away for {duration}'**
+  String idleTitle(String duration);
+
+  /// Stops the timer at the time the user left.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop at {time}'**
+  String idleStopAt(String time);
+
+  /// Running timer notification body.
+  ///
+  /// In en, this message translates to:
+  /// **'Started at {time}'**
+  String runningTimerBody(String time);
 }
 
 class _AppLocalizationsDelegate

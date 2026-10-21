@@ -1,7 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:meta/meta.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tempo_app/app.dart';
 import 'package:tempo_app/config/dependencies.dart';
 import 'package:tempo_app/data/services/database/app_database.dart';
@@ -23,6 +25,7 @@ void testApp(
     'language': 'english',
   },
   DateTime Function()? clock,
+  List<Override> overrides = const [],
 }) {
   testWidgets(description, (tester) async {
     // Prototype frame: 390 × 844.
@@ -31,6 +34,13 @@ void testApp(
       ..devicePixelRatio = 3;
     addTearDown(tester.view.reset);
 
+    PackageInfo.setMockInitialValues(
+      appName: 'Tempo',
+      packageName: 'com.example.tempo_app',
+      version: '1.0.0',
+      buildNumber: '1',
+      buildSignature: '',
+    );
     final prefs = await createTestPreferences(preferences);
     final database = createTestDatabase();
 
@@ -40,6 +50,7 @@ void testApp(
           sharedPreferencesProvider.overrideWithValue(prefs),
           appDatabaseProvider.overrideWithValue(database),
           if (clock != null) clockProvider.overrideWithValue(clock),
+          ...overrides,
         ],
         child: const TempoApp(),
       ),

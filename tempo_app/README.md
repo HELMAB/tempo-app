@@ -46,11 +46,13 @@ Rules of thumb:
   `ui/features/onboarding/view_models/onboarding_view_model.dart`.
 - **Repositories** are the single source of truth. They map drift rows to
   domain models; nothing above the data layer sees a `*Row` class.
-- **Services** wrap external things (SQLite via drift, shared preferences;
-  notifications later).
+- **Services** wrap external things: SQLite (drift), shared preferences,
+  `NotificationService` (flutter_local_notifications + timezone) and
+  `FileService` (share_plus to save or share, file_selector to pick).
 - Add to `domain/use_cases/` only when logic is shared across ViewModels or
   spans repositories. Current ones: `DailyProgress` (Today + Timer) and
-  `ProjectTotals` (Projects, and Reports next). Finished time is summed in
+  `ProjectTotals` (Projects), `PeriodReport` / `ReportRange` (Reports),
+  `encodeEntriesCsv` and `BackupFormat`. Finished time is summed in
   SQL (`watchFinishedTotalsByProject`); only the running entry is added in Dart.
 - Form ViewModels (entry editor, project sheet) keep the draft in a field, so
   a rebuild caused by a watched stream never wipes the user's edits.
@@ -81,6 +83,10 @@ Rules of thumb:
 | `/projects/new` · `/projects/:id` | New / edit project bottom sheet |
 | `/timer` | Running timer |
 | `/entry/new` · `/entry/:id` | Add / edit entry |
+
+App-wide pieces outside the routes: `IdleWatcher` (in `MaterialApp.builder`)
+and the `reminderSyncProvider` / `runningTimerNotificationSyncProvider`,
+which the app root listens to.
 
 ### Theme
 
@@ -119,9 +125,9 @@ ignored. English can be picked in Settings › Language.
 2. ✅ Timer logic: `TodayViewModel`, `TimerViewModel`, `DailyProgress` use case
 3. ✅ Today + Running timer screens
 4. ✅ Entry editor and Projects (+ new / edit project sheet)
-5. Reports (`fl_chart`), then Settings and reminders (`flutter_local_notifications`)
+5. ✅ Reports (`fl_chart`), then Settings and reminders (`flutter_local_notifications`)
 
-Screens not built yet render `ScreenPlaceholder`. Delete it once all are done.
+Every screen in the prototype is built.
 
 ## Notes
 
@@ -148,6 +154,33 @@ Screens not built yet render `ScreenPlaceholder`. Delete it once all are done.
   `AppSettings.weekStartsOn`.
 - Segmented controls use `PillSegmentedControl` (grey track, white pill), not
   `SegmentedButton`, to match the prototype.
+- Reports: weeks are calendar weeks starting on Settings › Week starts on, so
+  future days show empty bars. (The prototype shows the last 7 days.) The
+  "vs last week" chip compares with the *same part* of the previous period,
+  so Tuesday evening is compared with last Monday–Tuesday evening, not the
+  whole of last week. Entries are split across hour/day buckets.
+- Export: Reports › download exports the shown period, Settings › Export as
+  CSV everything. Column names stay English. Backup is versioned JSON
+  (projects + entries, not settings); restore replaces everything after a
+  confirmation and keeps ids. Onboarding can start from a backup.
+- Notifications work on Android, iOS and macOS only. Elsewhere (web, Linux,
+  Windows) the two reminder switches are disabled and say why. Turning
+  either one on asks for permission; if refused it stays off.
+  - "Remind me to start": Monday–Friday at the chosen time, inexact (no
+    exact-alarm permission needed).
+  - "Running timer notification": ongoing, with a live chronometer on
+    Android. It has no Stop/Pause buttons; those would need a background
+    isolate with database access. The subtitle says "Shows the running timer
+    on the lock screen" instead of the prototype's "Stop or pause…".
+- Idle detection on a phone means "away from the app": coming back after
+  10+ minutes with a timer running asks to keep the time or stop the timer
+  when you left. It only works while the OS keeps the app process alive.
+- Daily goal steps by 30 min (1h–16h).
+- Native setup already done: Android desugaring, boot / scheduled receivers,
+  `RECEIVE_BOOT_COMPLETED`, `res/raw/keep.xml` for the notification icon in
+  release builds. iOS sets the notification centre delegate. macOS has the
+  user-selected-file entitlement for restore. The app is named "Tempo" on
+  Android and iOS.
 - Widget tests go through `testApp` (`test/testing/app_tester.dart`). It runs
   at the 390 × 844 prototype size and unmounts the app, so drift's stream
   timers finish before the test ends.

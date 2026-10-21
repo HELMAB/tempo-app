@@ -6,6 +6,7 @@ import '../../../../routing/routes.dart';
 import '../../../core/formatters/duration_format.dart';
 import '../../../core/localization.dart';
 import '../../../core/themes/app_colors.dart';
+import '../../../core/widgets/goal_stepper.dart';
 import '../view_models/project_editor_view_model.dart';
 
 /// Bottom sheet to create (no [projectId]) or edit a project.
@@ -139,55 +140,17 @@ class _ProjectFormState extends ConsumerState<_ProjectForm> {
           _ColourPicker(selected: state.color, onSelected: _viewModel.setColor),
           const SizedBox(height: 20),
           label(l10n.projectWeeklyGoal),
-          DecoratedBox(
-            decoration: BoxDecoration(
-              color: colors.surfaceContainerLow,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Row(
-                children: [
-                  _StepButton(
-                    icon: Icons.remove,
-                    tooltip: l10n.projectDecreaseGoal,
-                    onPressed: state.canDecreaseGoal
-                        ? _viewModel.decreaseGoal
-                        : null,
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Text(
-                          state.weeklyGoalMinutes == 0
-                              ? l10n.projectNoGoal
-                              : formatGoal(state.weeklyGoal, l10n),
-                          textAlign: TextAlign.center,
-                          style: theme.textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        if (state.weeklyGoalMinutes > 0)
-                          Text(
-                            l10n.projectGoalPerDay(
-                              formatHoursMinutes(perDay, l10n),
-                            ),
-                            textAlign: TextAlign.center,
-                            style: labelStyle,
-                          ),
-                      ],
-                    ),
-                  ),
-                  _StepButton(
-                    icon: Icons.add,
-                    tooltip: l10n.projectIncreaseGoal,
-                    onPressed: state.canIncreaseGoal
-                        ? _viewModel.increaseGoal
-                        : null,
-                  ),
-                ],
-              ),
-            ),
+          GoalStepper(
+            value: state.weeklyGoalMinutes == 0
+                ? l10n.projectNoGoal
+                : formatGoal(state.weeklyGoal, l10n),
+            caption: state.weeklyGoalMinutes > 0
+                ? l10n.projectGoalPerDay(formatHoursMinutes(perDay, l10n))
+                : null,
+            decreaseTooltip: l10n.projectDecreaseGoal,
+            increaseTooltip: l10n.projectIncreaseGoal,
+            onDecrease: state.canDecreaseGoal ? _viewModel.decreaseGoal : null,
+            onIncrease: state.canIncreaseGoal ? _viewModel.increaseGoal : null,
           ),
           const SizedBox(height: 12),
           SwitchListTile(
@@ -295,34 +258,6 @@ class _Swatch extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _StepButton extends StatelessWidget {
-  const _StepButton({
-    required this.icon,
-    required this.tooltip,
-    required this.onPressed,
-  });
-
-  final IconData icon;
-  final String tooltip;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
-
-    return IconButton.filled(
-      tooltip: tooltip,
-      style: IconButton.styleFrom(
-        minimumSize: const Size.square(52),
-        backgroundColor: colors.surface,
-        foregroundColor: colors.onSurface,
-      ),
-      onPressed: onPressed,
-      icon: Icon(icon),
     );
   }
 }

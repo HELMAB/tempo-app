@@ -6,6 +6,7 @@ import 'domain/models/app_settings.dart';
 import 'l10n/app_localizations.dart';
 import 'routing/router.dart';
 import 'ui/core/themes/app_theme.dart';
+import 'ui/features/idle/views/idle_watcher.dart';
 
 class TempoApp extends ConsumerWidget {
   const TempoApp({super.key});
@@ -13,6 +14,10 @@ class TempoApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
+    // Keep notifications in step with settings and the running timer.
+    ref
+      ..listen(reminderSyncProvider, (_, _) {})
+      ..listen(runningTimerNotificationSyncProvider, (_, _) {});
     final (theme, language) = ref.watch(
       appSettingsProvider.select((settings) {
         final value = settings.value ?? const AppSettings();
@@ -37,6 +42,7 @@ class TempoApp extends ConsumerWidget {
         ThemePreference.system => ThemeMode.system,
       },
       routerConfig: router,
+      builder: (context, child) => IdleWatcher(child: child!),
     );
   }
 }

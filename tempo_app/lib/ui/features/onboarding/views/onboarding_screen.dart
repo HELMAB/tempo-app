@@ -126,12 +126,37 @@ class OnboardingScreen extends ConsumerWidget {
                 onPressed: status.isLoading ? null : viewModel.getStarted,
                 child: Text(l10n.onboardingGetStarted),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 8),
+              Center(
+                child: TextButton(
+                  onPressed: status.isLoading
+                      ? null
+                      : () => _restore(context, viewModel),
+                  child: Text(l10n.backupRestore),
+                ),
+              ),
+              const SizedBox(height: 16),
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+Future<void> _restore(
+  BuildContext context,
+  OnboardingViewModel viewModel,
+) async {
+  final l10n = context.l10n;
+  try {
+    await viewModel.restoreFromBackup(fileTypeLabel: l10n.backupFileType);
+  } on FormatException {
+    if (context.mounted) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.restoreInvalid)));
+    }
   }
 }
 

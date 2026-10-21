@@ -491,5 +491,331 @@
         "example": "3"
       }
     }
+  },
+  "reportsLoadError": "Could not load reports.",
+  "@reportsLoadError": {
+    "description": "Error shown when Reports fails to load."
+  },
+  "reportsDay": "Day",
+  "@reportsDay": {
+    "description": "Reports period segment."
+  },
+  "reportsWeek": "Week",
+  "@reportsWeek": {
+    "description": "Reports period segment."
+  },
+  "reportsMonth": "Month",
+  "@reportsMonth": {
+    "description": "Reports period segment."
+  },
+  "reportsExport": "Export CSV",
+  "@reportsExport": {
+    "description": "Tooltip of the Reports export button."
+  },
+  "reportsPrevious": "Previous",
+  "@reportsPrevious": {
+    "description": "Tooltip: go to the previous period."
+  },
+  "reportsNext": "Next",
+  "@reportsNext": {
+    "description": "Tooltip: go to the next period."
+  },
+  "reportsTotalToday": "Total today",
+  "@reportsTotalToday": {
+    "description": "Total label when viewing today."
+  },
+  "reportsTotalThisWeek": "Total this week",
+  "@reportsTotalThisWeek": {
+    "description": "Total label when viewing this week."
+  },
+  "reportsTotalThisMonth": "Total this month",
+  "@reportsTotalThisMonth": {
+    "description": "Total label when viewing this month."
+  },
+  "reportsTotal": "Total",
+  "@reportsTotal": {
+    "description": "Total label when viewing a past period."
+  },
+  "reportsByProject": "By project",
+  "@reportsByProject": {
+    "description": "Title of the per-project breakdown."
+  },
+  "reportsEmpty": "Nothing tracked in this period.",
+  "@reportsEmpty": {
+    "description": "Shown when the period has no time."
+  },
+  "exportFailed": "Could not export, please try again.",
+  "@exportFailed": {
+    "description": "Snackbar when an export fails."
+  },
+  "settingsTracking": "Tracking",
+  "@settingsTracking": {
+    "description": "Settings section title."
+  },
+  "settingsDailyGoal": "Daily goal",
+  "@settingsDailyGoal": {
+    "description": "Settings row and sheet title."
+  },
+  "settingsWeekStartsOn": "Week starts on",
+  "@settingsWeekStartsOn": {
+    "description": "Settings row and sheet title."
+  },
+  "settingsIdleDetection": "Idle detection",
+  "@settingsIdleDetection": {
+    "description": "Settings switch title."
+  },
+  "settingsReminders": "Reminders",
+  "@settingsReminders": {
+    "description": "Settings section title."
+  },
+  "settingsRemindToStart": "Remind me to start",
+  "@settingsRemindToStart": {
+    "description": "Settings switch title."
+  },
+  "settingsRunningTimerNotification": "Running timer notification",
+  "@settingsRunningTimerNotification": {
+    "description": "Settings switch title."
+  },
+  "settingsRunningTimerNotificationBody": "Shows the running timer on the lock screen",
+  "@settingsRunningTimerNotificationBody": {
+    "description": "Settings switch subtitle."
+  },
+  "settingsNotificationsUnavailable": "Not available on this device",
+  "@settingsNotificationsUnavailable": {
+    "description": "Subtitle when the platform can't show notifications."
+  },
+  "settingsAppearance": "Appearance",
+  "@settingsAppearance": {
+    "description": "Settings section title."
+  },
+  "settingsTheme": "Theme",
+  "@settingsTheme": {
+    "description": "Settings row and sheet title."
+  },
+  "themeSystem": "System",
+  "@themeSystem": {
+    "description": "Theme option: follow the device."
+  },
+  "themeLight": "Light",
+  "@themeLight": {
+    "description": "Theme option."
+  },
+  "themeDark": "Dark",
+  "@themeDark": {
+    "description": "Theme option."
+  },
+  "settingsData": "Data",
+  "@settingsData": {
+    "description": "Settings section title."
+  },
+  "settingsExportCsv": "Export as CSV",
+  "@settingsExportCsv": {
+    "description": "Settings row: export all entries."
+  },
+  "settingsBackup": "Backup & restore",
+  "@settingsBackup": {
+    "description": "Settings row and sheet title."
+  },
+  "backupCreate": "Create backup",
+  "@backupCreate": {
+    "description": "Backup sheet action."
+  },
+  "backupCreateBody": "Save all projects and entries to a file.",
+  "@backupCreateBody": {
+    "description": "Backup sheet action description."
+  },
+  "backupRestore": "Restore from a backup",
+  "@backupRestore": {
+    "description": "Backup sheet and onboarding action."
+  },
+  "backupRestoreBody": "Replace everything with a backup file.",
+  "@backupRestoreBody": {
+    "description": "Backup sheet action description."
+  },
+  "backupFileType": "Tempo backup",
+  "@backupFileType": {
+    "description": "File type label in the file picker."
+  },
+  "restoreConfirmTitle": "Replace all data?",
+  "@restoreConfirmTitle": {
+    "description": "Title of the restore confirmation."
+  },
+  "restoreConfirmBody": "Projects and entries on this device will be replaced by the backup.",
+  "@restoreConfirmBody": {
+    "description": "Body of the restore confirmation."
+  },
+  "restoreConfirm": "Replace",
+  "@restoreConfirm": {
+    "description": "Confirms the restore."
+  },
+  "restoreInvalid": "That file is not a Tempo backup.",
+  "@restoreInvalid": {
+    "description": "Shown when the picked file can't be read."
+  },
+  "notificationsDenied": "Notifications are turned off for Tempo in system settings.",
+  "@notificationsDenied": {
+    "description": "Shown when notification permission is refused."
+  },
+  "decrease": "Decrease",
+  "@decrease": {
+    "description": "Tooltip of a minus button."
+  },
+  "increase": "Increase",
+  "@increase": {
+    "description": "Tooltip of a plus button."
+  },
+  "idleBody": "Your timer kept running while you were away. Keep that time?",
+  "@idleBody": {
+    "description": "Body of the idle dialog."
+  },
+  "idleKeep": "Keep it",
+  "@idleKeep": {
+    "description": "Keeps the time tracked while away."
+  },
+  "reminderTitle": "Time to start tracking",
+  "@reminderTitle": {
+    "description": "Weekday reminder title."
+  },
+  "reminderBody": "Start a timer for what you're working on.",
+  "@reminderBody": {
+    "description": "Weekday reminder body."
+  },
+  "reminderChannel": "Reminders",
+  "@reminderChannel": {
+    "description": "Android notification channel name for reminders."
+  },
+  "runningTimerChannel": "Running timer",
+  "@runningTimerChannel": {
+    "description": "Android notification channel name for the running timer."
+  },
+  "runningTimerFallbackTitle": "Timer running",
+  "@runningTimerFallbackTitle": {
+    "description": "Running timer notification title when the entry has no description."
+  },
+  "reportsVsLast": "{diff} vs {period, select, day{yesterday} week{last week} other{last month}}",
+  "@reportsVsLast": {
+    "description": "Change against the previous period, e.g. +3h 20m vs last week.",
+    "placeholders": {
+      "diff": {
+        "type": "String",
+        "example": "+3h 20m"
+      },
+      "period": {
+        "type": "String",
+        "example": "week"
+      }
+    }
+  },
+  "reportsVsPrevious": "{diff} vs {period, select, day{the day before} week{the week before} other{the month before}}",
+  "@reportsVsPrevious": {
+    "description": "Change against the period before a past period.",
+    "placeholders": {
+      "diff": {
+        "type": "String",
+        "example": "-1h 05m"
+      },
+      "period": {
+        "type": "String",
+        "example": "week"
+      }
+    }
+  },
+  "reportsAverage": "avg {duration}",
+  "@reportsAverage": {
+    "description": "Label of the average line on the chart, e.g. avg 4h.",
+    "placeholders": {
+      "duration": {
+        "type": "String",
+        "example": "4h"
+      }
+    }
+  },
+  "durationCompact": "{hours}h{minutes}",
+  "@durationCompact": {
+    "description": "Short duration above chart bars, e.g. 4h30. Minutes are zero-padded.",
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "example": "4"
+      },
+      "minutes": {
+        "type": "String",
+        "example": "30"
+      }
+    }
+  },
+  "settingsIdleDetectionBody": "Ask when I'm back after {minutes} min away",
+  "@settingsIdleDetectionBody": {
+    "description": "Idle detection subtitle.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "settingsRemindToStartBody": "Weekdays at {time}",
+  "@settingsRemindToStartBody": {
+    "description": "Reminder subtitle, e.g. Weekdays at 09:00.",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "09:00"
+      }
+    }
+  },
+  "settingsVersion": "Tempo {version}",
+  "@settingsVersion": {
+    "description": "App version at the bottom of Settings.",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0"
+      }
+    }
+  },
+  "restoreDone": "Restored {projects} projects and {entries} entries.",
+  "@restoreDone": {
+    "description": "Shown after a restore.",
+    "placeholders": {
+      "projects": {
+        "type": "int",
+        "example": "5"
+      },
+      "entries": {
+        "type": "int",
+        "example": "120"
+      }
+    }
+  },
+  "idleTitle": "You were away for {duration}",
+  "@idleTitle": {
+    "description": "Title of the idle dialog, e.g. You were away for 25m.",
+    "placeholders": {
+      "duration": {
+        "type": "String",
+        "example": "25m"
+      }
+    }
+  },
+  "idleStopAt": "Stop at {time}",
+  "@idleStopAt": {
+    "description": "Stops the timer at the time the user left.",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "17:02"
+      }
+    }
+  },
+  "runningTimerBody": "Started at {time}",
+  "@runningTimerBody": {
+    "description": "Running timer notification body.",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "17:02"
+      }
+    }
   }
 }

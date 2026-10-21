@@ -12,6 +12,9 @@ abstract final class AppColors {
   static const outlineVariant = Color(0xFFE2E5EA);
   static const error = Color(0xFFC62845);
 
+  /// Positive change, e.g. "+3h 20m vs last week".
+  static const success = Color(0xFF1E7B3A);
+
   /// Swatches offered in the "New project" sheet, in display order.
   static const projectPalette = <Color>[
     Color(0xFF2B50E6),
