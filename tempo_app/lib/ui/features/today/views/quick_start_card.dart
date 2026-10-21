@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import '../../../../routing/routes.dart';
 import '../../../core/formatters/duration_format.dart';
 import '../../../core/localization.dart';
-import '../../../core/themes/app_motion.dart';
 import '../../../core/widgets/motion.dart';
 import '../../../core/widgets/project_chip.dart';
 import '../../../core/widgets/project_picker_sheet.dart';
@@ -73,9 +72,7 @@ class _QuickStartCardState extends ConsumerState<QuickStartCard> {
             children: [
               Expanded(
                 // Grows / shrinks smoothly between idle and running.
-                child: AnimatedSize(
-                  duration: AppMotion.of(context, AppMotion.medium),
-                  curve: AppMotion.move,
+                child: SmoothSize(
                   alignment: Alignment.topLeft,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

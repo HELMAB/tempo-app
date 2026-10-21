@@ -26,30 +26,37 @@ class LaunchOverlay extends StatefulWidget {
 
 class _LaunchOverlayState extends State<LaunchOverlay>
     with SingleTickerProviderStateMixin {
-  late final _controller = AnimationController(
-    vsync: this,
-    duration: LaunchOverlay.duration,
-  );
+  // Created up front (not `late`): with reduce motion they're never used,
+  // and dispose() must not be the first thing to create them.
+  late final AnimationController _controller;
+  late final CurvedAnimation _ring;
+  late final CurvedAnimation _pulse;
+  late final CurvedAnimation _reveal;
+  late final CurvedAnimation _logoOut;
   bool _started = false;
   bool _done = false;
 
-  // Timeline: ring sweeps, glyph pulses as it closes, then the reveal.
-  late final _ring = CurvedAnimation(
-    parent: _controller,
-    curve: const Interval(0.05, 0.55, curve: Curves.easeInOutCubic),
-  );
-  late final _pulse = CurvedAnimation(
-    parent: _controller,
-    curve: const Interval(0.45, 0.62),
-  );
-  late final _reveal = CurvedAnimation(
-    parent: _controller,
-    curve: const Interval(0.55, 1, curve: AppMotion.exit),
-  );
-  late final _logoOut = CurvedAnimation(
-    parent: _controller,
-    curve: const Interval(0.55, 0.78, curve: AppMotion.exit),
-  );
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: LaunchOverlay.duration,
+    );
+    CurvedAnimation curve(
+      double begin,
+      double end, [
+      Curve curve = Curves.linear,
+    ]) => CurvedAnimation(
+      parent: _controller,
+      curve: Interval(begin, end, curve: curve),
+    );
+    // Timeline: ring sweeps, glyph pulses as it closes, then the reveal.
+    _ring = curve(0.05, 0.55, Curves.easeInOutCubic);
+    _pulse = curve(0.45, 0.62);
+    _reveal = curve(0.55, 1, AppMotion.exit);
+    _logoOut = curve(0.55, 0.78, AppMotion.exit);
+  }
 
   @override
   void didChangeDependencies() {

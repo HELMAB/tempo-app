@@ -254,3 +254,27 @@ class ScaleSwitcher extends StatelessWidget {
     );
   }
 }
+
+/// [AnimatedSize] that steps aside when motion is reduced: with a zero
+/// duration AnimatedSize re-lays itself out mid-layout and asserts.
+class SmoothSize extends StatelessWidget {
+  const SmoothSize({
+    super.key,
+    this.alignment = Alignment.center,
+    required this.child,
+  });
+
+  final AlignmentGeometry alignment;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    if (AppMotion.reduced(context)) return child;
+    return AnimatedSize(
+      duration: AppMotion.medium,
+      curve: AppMotion.move,
+      alignment: alignment,
+      child: child,
+    );
+  }
+}

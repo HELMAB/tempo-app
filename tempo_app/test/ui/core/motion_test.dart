@@ -37,13 +37,15 @@ void main() {
       const MaterialApp(home: FadeSlideIn(index: 3, child: Text('row'))),
     );
     final opacity = tester.widget<FadeTransition>(
-      find.ancestor(
-        of: find.text('row'),
+      find.descendant(
+        of: find.byType(FadeSlideIn),
         matching: find.byType(FadeTransition),
       ),
     );
     expect(opacity.opacity.value, 0);
 
+    // Past the stagger delay (no frames run while it waits), then settle.
+    await tester.pump(const Duration(seconds: 1));
     await tester.pumpAndSettle();
     expect(opacity.opacity.value, 1);
   });
@@ -61,8 +63,8 @@ void main() {
 
     expect(find.byIcon(Icons.timer_outlined), findsNothing);
     final opacity = tester.widget<FadeTransition>(
-      find.ancestor(
-        of: find.text('row'),
+      find.descendant(
+        of: find.byType(FadeSlideIn),
         matching: find.byType(FadeTransition),
       ),
     );

@@ -1,0 +1,40 @@
+# Repo-wide ignores. Flutter build output and tooling are ignored in
+# tempo_app/.gitignore.
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
+
+# Editors
+.idea/
+*.iml
+*.swp
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Logs
+*.log
+
+# Secrets and environment files
+.env
+.env.*
+!.env.example
+
+# App signing (never commit release keys)
+*.jks
+*.keystore
+key.properties
+*.p12
+*.mobileprovision
+*.cer
+
+# Firebase / Google services config, if added later
+google-services.json
+GoogleService-Info.plist
+
+# Claude Code local settings
+.claude/settings.local.json
