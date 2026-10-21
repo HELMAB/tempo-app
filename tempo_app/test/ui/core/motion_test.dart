@@ -27,8 +27,7 @@ void main() {
 
     // First frame: brand blue with the white glyph covering the app.
     expect(find.byIcon(Icons.timer_outlined), findsOneWidget);
-    await tester.pump(LaunchOverlay.duration);
-    await tester.pump();
+    await tester.pumpAndSettle();
     expect(find.byIcon(Icons.timer_outlined), findsNothing);
     expect(find.text('app'), findsOneWidget);
   });
