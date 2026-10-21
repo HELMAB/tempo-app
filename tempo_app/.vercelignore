@@ -1,0 +1,14 @@
+# Not needed to build the web app.
+android/
+ios/
+linux/
+macos/
+windows/
+test/
+tool/
+branding/
+build/
+.dart_tool/
+coverage/
+*.iml
+.idea/

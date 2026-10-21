@@ -15,6 +15,51 @@ flutter run
 Re-run `build_runner` (or keep `dart run build_runner watch` open) after
 changing a drift table or a freezed model.
 
+## Deploying the web app (Vercel)
+
+Production web hosting is on Vercel, built by Vercel from Git.
+
+**One-time setup** (Vercel dashboard → Add New → Project):
+
+1. Import the `HELMAB/tempo-app` repository.
+2. **Root Directory:** `tempo_app`. Framework preset: **Other**. Leave the
+   build, install and output settings alone; `vercel.json` sets them.
+3. Optional environment variable `FLUTTER_VERSION` (default `3.44.6`).
+   Change it together with your local Flutter.
+4. Deploy. Pushes to the production branch (usually `main`) deploy to
+   production; other branches and pull requests get preview URLs.
+
+**What the config does**
+
+- `scripts/vercel-build.sh install` clones the pinned Flutter SDK (Vercel's
+  image has none) and runs `pub get`; `build` runs
+  `flutter build web --release --wasm --no-web-resources-cdn`. A cold build
+  takes a few minutes, mostly cloning Flutter.
+- `--wasm` ships WebAssembly with an automatic JavaScript fallback for
+  older browsers; `--no-web-resources-cdn` self-hosts CanvasKit/skwasm.
+- `vercel.json` rewrites unknown paths to `index.html`, because the app
+  uses clean URLs (`usePathUrlStrategy()`: `/projects`, not `/#/projects`).
+  Its headers enable **cross-origin isolation** (COOP `same-origin` + COEP
+  `require-corp`). That lets drift store data in OPFS, its fastest and most
+  durable web storage, and lets Wasm render multi-threaded. Basic security
+  headers are set too, and the entry files are `no-cache` (Flutter's
+  filenames aren't content-hashed).
+- `.vercelignore` keeps native platform folders, tests and tools out of the
+  build upload.
+
+**Before turning those headers off or changing them:** drift picks its
+storage from what the page allows. Without isolation it falls back to
+IndexedDB, and data saved in OPFS would no longer be found. Treat the
+storage choice as fixed once real users have data. Anything cross-origin
+that the app loads must send CORS or CORP headers under COEP.
+
+**Preview a production build locally**
+
+```sh
+flutter build web --release --wasm --no-web-resources-cdn
+python3 tool/serve_web.py build/web   # http://127.0.0.1:8767
+```
+
 ## Architecture
 
 Layered MVVM following the Flutter architecture guide: **UI → (Domain) → Data**.
