@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'app_colors.dart';
 
@@ -9,6 +8,9 @@ abstract final class AppTheme {
   static const fieldRadius = 12.0;
   static const cardRadius = 20.0;
   static const sheetRadius = 28.0;
+
+  /// Declared in pubspec.yaml, bundled from assets/fonts.
+  static const fontFamily = 'Manrope';
 
   static ThemeData get light => _build(
     ColorScheme.fromSeed(
@@ -39,6 +41,7 @@ abstract final class AppTheme {
 
     return ThemeData(
       useMaterial3: true,
+      fontFamily: fontFamily,
       colorScheme: scheme,
       scaffoldBackgroundColor: scheme.surfaceContainerLow,
       textTheme: textTheme,
@@ -115,26 +118,20 @@ abstract final class AppTheme {
   }
 
   static TextTheme _textTheme(ColorScheme scheme) {
-    final base = GoogleFonts.manropeTextTheme(
-      ThemeData(brightness: scheme.brightness).textTheme,
-    );
-    // Go through GoogleFonts.manrope rather than copyWith: google_fonts bakes
-    // the weight into the family name, so copyWith(fontWeight:) would only
-    // fake-bold the base file.
+    final base = ThemeData(
+      brightness: scheme.brightness,
+      fontFamily: fontFamily,
+    ).textTheme;
     TextStyle style(
       TextStyle? from,
       double size,
       double lineHeight,
-      FontWeight weight, {
-      double letterSpacing = 0,
-      List<FontFeature>? fontFeatures,
-    }) => GoogleFonts.manrope(
-      textStyle: from,
+      FontWeight weight,
+    ) => from!.copyWith(
       fontSize: size,
       height: lineHeight / size,
       fontWeight: weight,
-      letterSpacing: letterSpacing,
-      fontFeatures: fontFeatures,
+      letterSpacing: 0,
     );
 
     return base
@@ -145,8 +142,7 @@ abstract final class AppTheme {
             56,
             64,
             FontWeight.w800,
-            fontFeatures: const [FontFeature.tabularFigures()],
-          ),
+          ).copyWith(fontFeatures: const [FontFeature.tabularFigures()]),
           // 5h 42m — totals.
           displaySmall: style(base.displaySmall, 34, 40, FontWeight.w800),
           // Today — screen titles.
@@ -163,8 +159,7 @@ abstract final class AppTheme {
             12,
             16,
             FontWeight.w700,
-            letterSpacing: 0.8,
-          ),
+          ).copyWith(letterSpacing: 0.8),
         )
         .apply(bodyColor: scheme.onSurface, displayColor: scheme.onSurface);
   }

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../routing/routes.dart';
+import '../../../core/widgets/progress_ring.dart';
 import '../view_models/onboarding_view_model.dart';
 
 class OnboardingScreen extends ConsumerWidget {
@@ -52,7 +53,12 @@ class OnboardingScreen extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Text('Tempo', style: theme.textTheme.titleLarge),
+                  Text(
+                    'Tempo',
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
                   const Spacer(),
                   TextButton(
                     onPressed: status.isLoading ? null : viewModel.getStarted,
@@ -60,7 +66,28 @@ class OnboardingScreen extends ConsumerWidget {
                   ),
                 ],
               ),
-              const Spacer(),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 24),
+                  child: Center(
+                    child: ProgressRing(
+                      progress: 0.71,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('5h 42m', style: theme.textTheme.displaySmall),
+                          Text(
+                            'tracked today',
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: colors.onSurfaceVariant,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               Text(
                 'Know where your hours go.',
                 style: theme.textTheme.headlineMedium,
